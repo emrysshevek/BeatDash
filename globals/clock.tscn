@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvi6chk7hvjvs"]
+
+[ext_resource type="Script" path="res://globals/Clock.cs" id="1_uceom"]
+
+[node name="Clock" type="Timer"]
+autostart = true
+script = ExtResource("1_uceom")
