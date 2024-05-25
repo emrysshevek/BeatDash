@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bbwuhq5a4pofj"]
+[gd_scene load_steps=10 format=3 uid="uid://bbwuhq5a4pofj"]
 
 [ext_resource type="Script" path="res://scenes/Background.cs" id="1_uko4o"]
 [ext_resource type="TileSet" uid="uid://dxhv6xvhs3rfr" path="res://assets/background_tileset.tres" id="2_aq64x"]
 [ext_resource type="Script" path="res://scenes/TmpLabel.cs" id="3_bsu6e"]
+[ext_resource type="PackedScene" uid="uid://dpswa70jplyuu" path="res://entities/actors/player/player.tscn" id="4_1m7aj"]
 
 [sub_resource type="Environment" id="Environment_k72sj"]
 background_mode = 3
@@ -84,7 +85,6 @@ _data = {
 
 [node name="Background" type="Node2D"]
 script = ExtResource("1_uko4o")
-PulseEvery = 3
 
 [node name="TileMap" type="TileMap" parent="."]
 texture_repeat = 2
@@ -111,3 +111,6 @@ theme_override_colors/font_color = Color(0, 0.694118, 0.129412, 1)
 theme_override_font_sizes/font_size = 100
 text = "0.0"
 script = ExtResource("3_bsu6e")
+
+[node name="Player" parent="." instance=ExtResource("4_1m7aj")]
+position = Vector2(64, 64)

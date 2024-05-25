@@ -31,8 +31,8 @@ public partial class Background : Node2D
 		PulseCount = (PulseCount + 1) % PulseEvery;
 		if (PulseCount == 0)
 		{
-			GD.Print($"{SecondsPerPulse} sec Background Pulse @ {Clock.ElapsedTime}");
-			GD.Print($"SpeedScale={AP.SpeedScale}, PulseEvery={PulseEvery}");
+			// GD.Print($"{SecondsPerPulse} sec Background Pulse @ {Clock.ElapsedTime}");
+			// GD.Print($"SpeedScale={AP.SpeedScale}, PulseEvery={PulseEvery}");
 			AP.Stop(keepState: true);
 			AP.Play("pulse");
 		}

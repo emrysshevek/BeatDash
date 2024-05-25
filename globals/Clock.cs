@@ -48,8 +48,8 @@ public partial class Clock : Timer
 			WaitTime = 1 / (_bpm / 60);
 			EmitSignal(SignalName.BPMChanged);
 		}
-
-		GD.Print($"Tick @ {ElapsedTime}");
+		
+		// GD.Print($"Tick @ {ElapsedTime}");
 		EmitSignal(SignalName.Tick);
 	}
 
