@@ -31,6 +31,7 @@ public partial class Clock : Timer
     {
         base._Ready();
 		Timeout += BroadcastTick;
+		_bpm = _nextbpm;
 		WaitTime = 1 / (_bpm / 60);
 		EmitSignal(SignalName.Sync);
     }

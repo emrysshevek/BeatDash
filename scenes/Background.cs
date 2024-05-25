@@ -23,7 +23,8 @@ public partial class Background : Node2D
 		Clock.BPMChanged += OnBPMChanged;
 
 		AP = GetNode<AnimationPlayer>("AnimationPlayer");
-		// AP.SpeedScale = 1 / SecondsPerPulse;;
+		AP.SpeedScale = Mathf.Max(1 / SecondsPerPulse, 1);
+		GD.Print(SecondsPerPulse, AP.SpeedScale);
     }
 
 	public void OnClockTick()
@@ -31,8 +32,8 @@ public partial class Background : Node2D
 		PulseCount = (PulseCount + 1) % PulseEvery;
 		if (PulseCount == 0)
 		{
-			// GD.Print($"{SecondsPerPulse} sec Background Pulse @ {Clock.ElapsedTime}");
-			// GD.Print($"SpeedScale={AP.SpeedScale}, PulseEvery={PulseEvery}");
+			GD.Print($"{SecondsPerPulse} sec Background Pulse @ {Clock.ElapsedTime}");
+			GD.Print($"SpeedScale={AP.SpeedScale}, PulseEvery={PulseEvery}");
 			AP.Stop(keepState: true);
 			AP.Play("pulse");
 		}
