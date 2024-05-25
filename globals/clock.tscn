@@ -5,3 +5,4 @@
 [node name="Clock" type="Timer"]
 autostart = true
 script = ExtResource("1_uceom")
+BPM = 100.0
