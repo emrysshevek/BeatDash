@@ -3,16 +3,16 @@ using System;
 
 public partial class TmpLabel : Label
 {
-	private Clock Clock;
+	private Metronome Metronome;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		Clock = GetNode<Clock>("/root/Clock");
+		Metronome = GetNode<Metronome>("/root/Metronome");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		Text = $"{Clock.ElapsedTime}";
+		Text = $"{Metronome.ElapsedTime}";
 	}
 }

@@ -4,29 +4,30 @@ using System;
 public partial class MoveComponent : Node2D
 {
 	[Export]
-	public int MoveEvery = 1;
-	[Export]
 	public int Speed = 1;
 	[Export]
 	public float ToleranceRatio = 0.1f;
 	[Export]
 	public Tween.TransitionType Transition = Tween.TransitionType.Linear;
 	[Export]
+	public BeatIntervalComponent IntervalComponent;
+	[Export]
 	public CharacterBody2D Body;
 
 	public Vector2I BufferedPositionUpdate = Vector2I.Zero;
 	public Vector2I StartingPosition;
 	public Vector2I EndingPosition;
+	private Metronome Metronome;
 	private Tween PositionTween = null;
-	private Clock Clock;
-	private int TickCount = 0;	
+	private int TickCount = 0;
 	private bool InStep = false;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		Clock = GetNode<Clock>("/root/Clock");
-		Clock.Tick += OnClockTick;
+		Metronome = GetNode<Metronome>("/root/Metronome");
+		IntervalComponent ??= GetNode<BeatIntervalComponent>("BeatIntervalComponent");
+		IntervalComponent.IntervalElapsed += Move;
 
 		StartingPosition = (Vector2I) Body.Position;
 		EndingPosition = (Vector2I) Body.Position;
@@ -41,10 +42,10 @@ public partial class MoveComponent : Node2D
 			// GD.Print($"Updated BufferePositionUpdate={BufferedPositionUpdate}");
 		}
 
-		var diff = Math.Abs(GetBeatOffset() / Clock.SecondsPerBeat);
+		var diff = Math.Abs(GetBeatOffset() / Metronome.SecondsPerBeat);
 		if (diff < ToleranceRatio)
 		{
-			GD.Print($"Moving based on tolerance {GetBeatOffset() / Clock.SecondsPerBeat}");
+			GD.Print($"Moving based on tolerance {GetBeatOffset() / Metronome.SecondsPerBeat}");
 			Move();
 		}
 	}
@@ -61,7 +62,7 @@ public partial class MoveComponent : Node2D
 
 			// If we are slightly ahead or behind beat (within tolerance), 
 			// factor that time into duration
-			var duration = Clock.SecondsPerBeat * MoveEvery + GetBeatOffset();
+			var duration = Metronome.SecondsPerBeat * IntervalComponent.Frequency + GetBeatOffset();
 
 			GD.Print($"Transitioning to position {EndingPosition}. Duration={duration}");
 			ResetPositionTween();
@@ -73,7 +74,8 @@ public partial class MoveComponent : Node2D
 
 	private float GetBeatOffset()
 	{
-		return (float)(Clock.TimeLeft > Clock.SecondsPerBeat / 2 ? -(Clock.SecondsPerBeat - Clock.TimeLeft) : Clock.TimeLeft);
+		
+		return (float)(Metronome.TimeLeft > Metronome.SecondsPerBeat / 2 ? -(Metronome.SecondsPerBeat - Metronome.TimeLeft) : Metronome.TimeLeft);
 	}
 
 	private void ResetPositionTween()
@@ -88,14 +90,6 @@ public partial class MoveComponent : Node2D
 		PositionTween.SetTrans(Transition);
 		PositionTween.SetProcessMode(Tween.TweenProcessMode.Physics);
 		PositionTween.Finished += OnTweenFinished;
-	}
-
-	private void OnClockTick()
-	{
-		TickCount = (TickCount + 1) % MoveEvery;
-		if (TickCount != 0) return;
-
-		Move();
 	}
 
 	private void OnTweenFinished()

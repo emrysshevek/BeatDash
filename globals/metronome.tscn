@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhuofe7ejcc5r"]
+
+[ext_resource type="Script" path="res://globals/Metronome.cs" id="1_ujuxd"]
+
+[node name="Metronome" type="Timer"]
+autostart = true
+script = ExtResource("1_ujuxd")

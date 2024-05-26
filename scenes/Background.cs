@@ -5,48 +5,31 @@ using System.Runtime.CompilerServices;
 public partial class Background : Node2D
 {
 	[Export]
-	public int PulseEvery = 1;
+	public BeatIntervalComponent Interval;
 
-	public int PulseCount = 0;
 	public AnimationPlayer AP;
-	private Clock Clock = null;
-	public float SecondsPerPulse
-	{
-		get => (float) Clock.SecondsPerBeat * PulseEvery;
-	}
+	private Metronome Metronome = null;
+
     public override void _Ready()
     {
         base._Ready();
 
-		Clock = GetNode<Clock>("/root/Clock");
-		Clock.Tick += OnClockTick;
-		Clock.BPMChanged += OnBPMChanged;
+		Metronome = GetNode<Metronome>("/root/Metronome");
+		Interval ??= GetNode<BeatIntervalComponent>("BeatIntervalComponent");
+		Interval.IntervalElapsed += OnIntervalElapsed;
 
 		AP = GetNode<AnimationPlayer>("AnimationPlayer");
-		AP.SpeedScale = Mathf.Max(1 / SecondsPerPulse, 1);
-		GD.Print(SecondsPerPulse, AP.SpeedScale);
+		AP.SpeedScale = Mathf.Max(1 / Interval.SecondsPerInterval, 1);
     }
 
-	public void OnClockTick()
+	public void OnIntervalElapsed()
 	{
-		PulseCount = (PulseCount + 1) % PulseEvery;
-		if (PulseCount == 0)
-		{
-			GD.Print($"{SecondsPerPulse} sec Background Pulse @ {Clock.ElapsedTime}");
-			GD.Print($"SpeedScale={AP.SpeedScale}, PulseEvery={PulseEvery}");
-			AP.Stop(keepState: true);
-			AP.Play("pulse");
-		}
-	}
+		GD.Print($"{Interval.SecondsPerInterval} sec Background Pulse @ {Metronome.ElapsedTime}");
+		GD.Print($"SpeedScale={AP.SpeedScale}, Frequency={Interval.Frequency}");
 
-	public void OnBPMChanged()
-	{
-		// AP.SpeedScale = 1 / SecondsPerPulse;
-	}
+		AP.Stop(keepState: true);
 
-	public void OnSync()
-	{
-		// AP.SpeedScale = 1 / SecondsPerPulse;
-		GD.Print($"Clock.SecondsPerBeat={Clock.SecondsPerBeat}, SecondsPerPulse={SecondsPerPulse}, AP.SpeedScale={AP.SpeedScale}");
+		AP.SpeedScale = Mathf.Max(1 / Interval.SecondsPerInterval, 1);
+		AP.Play("pulse");
 	}
 }
