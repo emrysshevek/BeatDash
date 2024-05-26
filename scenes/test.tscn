@@ -1,7 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://dwajbp2dbyn0p"]
+[gd_scene load_steps=3 format=3 uid="uid://dwajbp2dbyn0p"]
 
 [ext_resource type="PackedScene" uid="uid://bbwuhq5a4pofj" path="res://scenes/background.tscn" id="1_5vlkb"]
+[ext_resource type="PackedScene" uid="uid://4de4nosgm5gn" path="res://entities/actors/enemy/straight_line_enemy.tscn" id="2_1yd5c"]
 
 [node name="Test" type="Node2D"]
 
 [node name="Background" parent="." instance=ExtResource("1_5vlkb")]
+
+[node name="BaseEnemy" parent="." instance=ExtResource("2_1yd5c")]
+position = Vector2(320, 64)

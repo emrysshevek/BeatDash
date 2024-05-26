@@ -3,10 +3,11 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
-	public MoveComponent Move;
+	[Export]
+	public StepComponent Move;
     public override void _Ready()
     {
-        Move = GetNode<MoveComponent>("MoveComponent");
+        Move ??= GetNode<StepComponent>("StepComponent");
     }
     public override void _PhysicsProcess(double delta)
 	{

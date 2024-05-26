@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://4de4nosgm5gn"]
+
+[ext_resource type="PackedScene" uid="uid://b6vf7xrp51cib" path="res://entities/actors/enemy/base_enemy.tscn" id="1_imnlt"]
+[ext_resource type="PackedScene" uid="uid://dk86oww7rscv8" path="res://components/movement/straight_line_component.tscn" id="2_sgh2j"]
+[ext_resource type="PackedScene" uid="uid://b6ir4n3xkvgqj" path="res://components/movement/step_component.tscn" id="3_nh17c"]
+[ext_resource type="PackedScene" uid="uid://cw88n0u6arqdq" path="res://components/beat_interval_component.tscn" id="4_okwo6"]
+
+[node name="BaseEnemy" instance=ExtResource("1_imnlt")]
+
+[node name="StraightLineComponent2" parent="." index="2" instance=ExtResource("2_sgh2j")]
+Direction = Vector2i(1, 1)
+
+[node name="StepComponent" parent="StraightLineComponent2" index="0" node_paths=PackedStringArray("IntervalComponent", "Body") instance=ExtResource("3_nh17c")]
+Speed = 2
+ToleranceRatio = 0.0
+IntervalComponent = NodePath("BeatIntervalComponent")
+Body = NodePath("../..")
+
+[node name="BeatIntervalComponent" parent="StraightLineComponent2/StepComponent" index="0" instance=ExtResource("4_okwo6")]

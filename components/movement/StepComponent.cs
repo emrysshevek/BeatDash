@@ -1,8 +1,11 @@
 using Godot;
 using System;
 
-public partial class MoveComponent : Node2D
+public partial class StepComponent : Node2D
 {
+	[Signal]
+	public delegate void StepFinishedEventHandler(); 
+
 	[Export]
 	public int Speed = 1;
 	[Export]
@@ -38,7 +41,7 @@ public partial class MoveComponent : Node2D
 	{
 		if (direction != Vector2I.Zero)
 		{
-			BufferedPositionUpdate = direction * Global.TileSize;
+			BufferedPositionUpdate = direction * Global.TileSize * Speed;
 			// GD.Print($"Updated BufferePositionUpdate={BufferedPositionUpdate}");
 		}
 
@@ -96,5 +99,6 @@ public partial class MoveComponent : Node2D
 	{
 		// TODO: Round position to make sure we're centered on tile
 		InStep = false;
+		EmitSignal(SignalName.StepFinished);
 	}
 }
