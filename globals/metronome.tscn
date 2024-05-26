@@ -5,3 +5,4 @@
 [node name="Metronome" type="Timer"]
 autostart = true
 script = ExtResource("1_ujuxd")
+BPM = 120.0
