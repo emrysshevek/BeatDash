@@ -8,4 +8,10 @@
 [node name="Background" parent="." instance=ExtResource("1_5vlkb")]
 
 [node name="SquareEnemy" parent="." instance=ExtResource("2_dt3ku")]
-position = Vector2(320, 192)
+position = Vector2(320, 323)
+
+[node name="BeatIntervalComponent" parent="SquareEnemy/SquareMovementComponent/StepComponent" index="0"]
+BeatsPerInterval = 4
+
+[editable path="SquareEnemy"]
+[editable path="SquareEnemy/SquareMovementComponent"]

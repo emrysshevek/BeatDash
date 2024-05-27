@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://bbwuhq5a4pofj"]
+[gd_scene load_steps=10 format=3 uid="uid://bbwuhq5a4pofj"]
 
 [ext_resource type="Script" path="res://scenes/Background.cs" id="1_uko4o"]
 [ext_resource type="TileSet" uid="uid://dxhv6xvhs3rfr" path="res://assets/background_tileset.tres" id="2_aq64x"]
 [ext_resource type="Script" path="res://scenes/TmpLabel.cs" id="3_bsu6e"]
-[ext_resource type="PackedScene" uid="uid://dpswa70jplyuu" path="res://entities/actors/player/player.tscn" id="4_1m7aj"]
-[ext_resource type="PackedScene" uid="uid://cw88n0u6arqdq" path="res://components/beat_interval_component.tscn" id="5_4tj0m"]
+[ext_resource type="PackedScene" uid="uid://cw88n0u6arqdq" path="res://components/timing/interval_counter.tscn" id="5_4tj0m"]
 
 [sub_resource type="Environment" id="Environment_k72sj"]
 background_mode = 3
@@ -113,8 +112,5 @@ theme_override_colors/font_color = Color(0, 0.694118, 0.129412, 1)
 theme_override_font_sizes/font_size = 100
 text = "0.0"
 script = ExtResource("3_bsu6e")
-
-[node name="Player" parent="." instance=ExtResource("4_1m7aj")]
-position = Vector2(64, 64)
 
 [node name="BeatIntervalComponent" parent="." instance=ExtResource("5_4tj0m")]

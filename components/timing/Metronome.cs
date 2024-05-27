@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class Metronome : Timer
 {
@@ -20,12 +19,12 @@ public partial class Metronome : Timer
 		} 
 	}
 
-	public double SecondsPerBeat
+	public virtual double SecondsPerBeat
 	{
 		get => WaitTime;
 	}
 	public double ElapsedTime { get; private set; } = 0;
-	public double IntervalElapsedTime { get; private set; } = 0;
+	public double TimeSince { get; private set; } = 0;
 
     public override void _Ready()
     {
@@ -38,7 +37,7 @@ public partial class Metronome : Timer
     {
         base._PhysicsProcess(delta);
 		ElapsedTime += delta;
-		IntervalElapsedTime += delta;
+		TimeSince += delta;
     }
     private void BroadcastBeat()
 	{
@@ -52,6 +51,6 @@ public partial class Metronome : Timer
 		
 		// GD.Print($"Tick @ {ElapsedTime}");
 		EmitSignal(SignalName.Beat);
-		IntervalElapsedTime = 0;
+		TimeSince = 0;
 	}
 }

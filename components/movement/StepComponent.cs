@@ -13,7 +13,7 @@ public partial class StepComponent : Node2D
 	[Export]
 	public Tween.TransitionType Transition = Tween.TransitionType.Linear;
 	[Export]
-	public BeatIntervalComponent IntervalComponent;
+	public IntervalCounter IntervalComponent;
 	[Export]
 	public CharacterBody2D Body;
 
@@ -29,8 +29,8 @@ public partial class StepComponent : Node2D
 	public override void _Ready()
 	{
 		Metronome = GetNode<Metronome>("/root/Metronome");
-		IntervalComponent ??= GetNode<BeatIntervalComponent>("BeatIntervalComponent");
-		IntervalComponent.IntervalElapsed += Move;
+		IntervalComponent ??= GetNode<IntervalCounter>("BeatIntervalComponent");
+		IntervalComponent.Beat += Move;
 
 		StartingPosition = (Vector2I) Body.Position;
 		EndingPosition = (Vector2I) Body.Position;
@@ -65,7 +65,7 @@ public partial class StepComponent : Node2D
 
 			// If we are slightly ahead or behind beat (within tolerance), 
 			// factor that time into duration
-			var duration = Metronome.SecondsPerBeat * IntervalComponent.Frequency + GetBeatOffset();
+			var duration = Metronome.SecondsPerBeat * IntervalComponent.BeatsPerInterval + GetBeatOffset();
 
 			GD.Print($"Transitioning to position {EndingPosition}. Duration={duration}");
 			ResetPositionTween();
