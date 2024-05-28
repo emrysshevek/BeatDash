@@ -1,11 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://c0ybtmwx2a0h5"]
+[gd_scene load_steps=4 format=3 uid="uid://c0ybtmwx2a0h5"]
 
 [ext_resource type="PackedScene" uid="uid://bbwuhq5a4pofj" path="res://scenes/background.tscn" id="1_5vlkb"]
 [ext_resource type="PackedScene" uid="uid://bhxgqxkjrtfm4" path="res://entities/actors/enemy/square_enemy.tscn" id="2_dt3ku"]
+[ext_resource type="PackedScene" uid="uid://dpswa70jplyuu" path="res://entities/actors/player/player.tscn" id="2_jljom"]
 
 [node name="Test" type="Node2D"]
 
 [node name="Background" parent="." instance=ExtResource("1_5vlkb")]
+PulseInterval = 0.5
+
+[node name="Player" parent="." instance=ExtResource("2_jljom")]
+position = Vector2(192, 192)
+scale = Vector2(0.75, 0.75)
 
 [node name="SquareEnemy" parent="." instance=ExtResource("2_dt3ku")]
-position = Vector2(320, 192)
+position = Vector2(576, 320)

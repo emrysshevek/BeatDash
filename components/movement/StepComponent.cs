@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class StepComponent : Node2D
+public partial class StepComponent : Node, IntervalSignalable
 {
 	[Signal]
 	public delegate void StepFinishedEventHandler(); 
@@ -9,17 +9,17 @@ public partial class StepComponent : Node2D
 	[Export]
 	public int Speed = 1;
 	[Export]
+	public int StepInterval = 1;
+	[Export]
 	public float ToleranceRatio = 0.1f;
 	[Export]
 	public Tween.TransitionType Transition = Tween.TransitionType.Linear;
-	[Export]
-	public BeatIntervalComponent IntervalComponent;
 	[Export]
 	public CharacterBody2D Body;
 
 	public Vector2I BufferedPositionUpdate = Vector2I.Zero;
 	public Vector2I StartingPosition;
-	public Vector2I EndingPosition;
+	public Vector2I TargetPosition;
 	private Metronome Metronome;
 	private Tween PositionTween = null;
 	private int TickCount = 0;
@@ -29,11 +29,10 @@ public partial class StepComponent : Node2D
 	public override void _Ready()
 	{
 		Metronome = GetNode<Metronome>("/root/Metronome");
-		IntervalComponent ??= GetNode<BeatIntervalComponent>("BeatIntervalComponent");
-		IntervalComponent.IntervalElapsed += Move;
+		Metronome.SubscribeToInterval(StepInterval, this);
 
 		StartingPosition = (Vector2I) Body.Position;
-		EndingPosition = (Vector2I) Body.Position;
+		TargetPosition = (Vector2I) Body.Position;
 	}
 
 	
@@ -45,12 +44,17 @@ public partial class StepComponent : Node2D
 			// GD.Print($"Updated BufferePositionUpdate={BufferedPositionUpdate}");
 		}
 
-		var diff = Math.Abs(GetBeatOffset() / Metronome.SecondsPerBeat);
+		var diff = Math.Abs(GetIntervalOffset() / Metronome.SecondsPerBeat);
 		if (diff < ToleranceRatio)
 		{
-			GD.Print($"Moving based on tolerance {GetBeatOffset() / Metronome.SecondsPerBeat}");
+			GD.Print($"Moving based on tolerance {GetIntervalOffset() / Metronome.SecondsPerBeat}");
 			Move();
 		}
+	}
+
+	public void OnIntervalElapsed()
+	{
+		Move();
 	}
 
 	public void Move()
@@ -59,26 +63,27 @@ public partial class StepComponent : Node2D
 
 		if (BufferedPositionUpdate != Vector2I.Zero)
 		{
-			StartingPosition = EndingPosition;
-			EndingPosition = StartingPosition + BufferedPositionUpdate;
+			StartingPosition = TargetPosition;
+			TargetPosition = StartingPosition + BufferedPositionUpdate;
 			BufferedPositionUpdate = Vector2I.Zero;
 
 			// If we are slightly ahead or behind beat (within tolerance), 
 			// factor that time into duration
-			var duration = Metronome.SecondsPerBeat * IntervalComponent.Frequency + GetBeatOffset();
+			var duration = Metronome.SecondsPerBeat * StepInterval + GetIntervalOffset();
 
-			GD.Print($"Transitioning to position {EndingPosition}. Duration={duration}");
+			GD.Print($"Transitioning to position {TargetPosition}. Duration={duration}");
 			ResetPositionTween();
-			PositionTween.TweenProperty(Body, "position", (Vector2) EndingPosition, duration);
+			PositionTween.TweenProperty(Body, "position", (Vector2) TargetPosition, duration);
 
 			InStep = true;
 		}
 	}
 
-	private float GetBeatOffset()
+	private float GetIntervalOffset()
 	{
-		
-		return (float)(Metronome.TimeLeft > Metronome.SecondsPerBeat / 2 ? -(Metronome.SecondsPerBeat - Metronome.TimeLeft) : Metronome.TimeLeft);
+		float since = (float) Metronome.getSecondsSinceInterval(StepInterval);
+		float until = (float) Metronome.GetSecondsUntilInterval(StepInterval);
+		return since < until ? -since : until;
 	}
 
 	private void ResetPositionTween()

@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*res://globals/Global.cs"
-Metronome="*res://globals/metronome.tscn"
+Global="*res://utilities/globals/Global.cs"
+Metronome="*res://components/timing/metronome.tscn"
 
 [display]
 

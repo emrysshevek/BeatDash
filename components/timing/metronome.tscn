@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bhuofe7ejcc5r"]
 
-[ext_resource type="Script" path="res://globals/Metronome.cs" id="1_ujuxd"]
+[ext_resource type="Script" path="res://components/timing/Metronome.cs" id="1_ujuxd"]
 
 [node name="Metronome" type="Timer"]
 autostart = true
