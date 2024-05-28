@@ -7,6 +7,7 @@
 [node name="Test" type="Node2D"]
 
 [node name="Background" parent="." instance=ExtResource("1_5vlkb")]
+PulseInterval = 0.5
 
 [node name="Player" parent="." instance=ExtResource("2_jljom")]
 position = Vector2(192, 192)

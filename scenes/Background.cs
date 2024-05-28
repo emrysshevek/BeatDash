@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 public partial class Background : Node2D, IntervalSignalable
 {
 	[Export]
-	public int PulseInterval = 1;
+	public float PulseInterval = 1;
 	public AnimationPlayer AP;
 	private Metronome Metronome;
 
