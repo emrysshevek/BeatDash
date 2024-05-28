@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dpswa70jplyuu"]
+[gd_scene load_steps=5 format=3 uid="uid://dpswa70jplyuu"]
 
 [ext_resource type="Script" path="res://entities/actors/player/Player.cs" id="1_eaw28"]
 [ext_resource type="Texture2D" uid="uid://dfeds31uixvuq" path="res://icon.svg" id="2_cyo7b"]
 [ext_resource type="PackedScene" uid="uid://b6ir4n3xkvgqj" path="res://components/movement/step_component.tscn" id="3_ddu0u"]
-[ext_resource type="PackedScene" uid="uid://cw88n0u6arqdq" path="res://components/timing/interval_counter.tscn" id="4_hrp5w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pjsad"]
 radius = 59.0339
@@ -19,9 +18,6 @@ shape = SubResource("CircleShape2D_pjsad")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_cyo7b")
 
-[node name="StepComponent" parent="." node_paths=PackedStringArray("IntervalComponent", "Body") instance=ExtResource("3_ddu0u")]
+[node name="StepComponent" parent="." node_paths=PackedStringArray("Body") instance=ExtResource("3_ddu0u")]
 Transition = 5
-IntervalComponent = NodePath("BeatIntervalComponent")
 Body = NodePath("..")
-
-[node name="BeatIntervalComponent" parent="StepComponent" instance=ExtResource("4_hrp5w")]

@@ -2,34 +2,31 @@ using Godot;
 using System;
 using System.Runtime.CompilerServices;
 
-public partial class Background : Node2D
+public partial class Background : Node2D, IntervalSignalable
 {
 	[Export]
-	public IntervalCounter Interval;
-
+	public int PulseInterval = 1;
 	public AnimationPlayer AP;
-	private Metronome Metronome = null;
+	private Metronome Metronome;
 
     public override void _Ready()
     {
-        base._Ready();
-
 		Metronome = GetNode<Metronome>("/root/Metronome");
-		Interval ??= GetNode<IntervalCounter>("BeatIntervalComponent");
-		Interval.Beat += OnIntervalElapsed;
+		Metronome.SubscribeToInterval(PulseInterval, this);
+		
 
 		AP = GetNode<AnimationPlayer>("AnimationPlayer");
-		AP.SpeedScale = (float) Mathf.Max(1 / Interval.SecondsPerBeat, 1);
+		AP.SpeedScale = (float) Mathf.Max(1 / Metronome.GetSecondsPerInterval(PulseInterval), 1);
     }
 
 	public void OnIntervalElapsed()
 	{
-		GD.Print($"{Interval.SecondsPerBeat} sec Background Pulse @ {Metronome.ElapsedTime}");
-		GD.Print($"SpeedScale={AP.SpeedScale}, Frequency={Interval.BeatsPerInterval}");
+		GD.Print($"{1 / AP.SpeedScale} sec Background Pulse @ {Metronome.TotalElapsedTime}");
+		GD.Print($"SpeedScale={AP.SpeedScale}, Interval={PulseInterval}");
 
 		AP.Stop(keepState: true);
 
-		AP.SpeedScale = (float) Mathf.Max(1 / Interval.SecondsPerBeat, 1);
+		AP.SpeedScale = (float) Mathf.Max(1 / Metronome.GetSecondsPerInterval(PulseInterval), 1);
 		AP.Play("pulse");
 	}
 }

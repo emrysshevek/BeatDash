@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhxgqxkjrtfm4"]
+[gd_scene load_steps=4 format=3 uid="uid://bhxgqxkjrtfm4"]
 
 [ext_resource type="PackedScene" uid="uid://b6vf7xrp51cib" path="res://entities/actors/enemy/base_enemy.tscn" id="1_lpnxv"]
 [ext_resource type="PackedScene" uid="uid://c2xyk6vdumtt1" path="res://components/movement/square_movement_component.tscn" id="2_drjgx"]
 [ext_resource type="PackedScene" uid="uid://b6ir4n3xkvgqj" path="res://components/movement/step_component.tscn" id="3_2apc1"]
-[ext_resource type="PackedScene" uid="uid://cw88n0u6arqdq" path="res://components/timing/interval_counter.tscn" id="4_k6r0o"]
 
 [node name="SquareEnemy" instance=ExtResource("1_lpnxv")]
 
@@ -15,7 +14,5 @@ Stepper = NodePath("StepComponent")
 Speed = 2
 Transition = 10
 Body = NodePath("../..")
-
-[node name="BeatIntervalComponent" parent="SquareMovementComponent/StepComponent" index="0" instance=ExtResource("4_k6r0o")]
 
 [editable path="SquareMovementComponent"]
