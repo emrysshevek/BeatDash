@@ -1,17 +1,25 @@
 [gd_scene load_steps=4 format=3 uid="uid://c0ybtmwx2a0h5"]
 
 [ext_resource type="PackedScene" uid="uid://bbwuhq5a4pofj" path="res://scenes/background.tscn" id="1_5vlkb"]
-[ext_resource type="PackedScene" uid="uid://bhxgqxkjrtfm4" path="res://entities/actors/enemy/square_enemy.tscn" id="2_dt3ku"]
 [ext_resource type="PackedScene" uid="uid://dpswa70jplyuu" path="res://entities/actors/player/player.tscn" id="2_jljom"]
+[ext_resource type="PackedScene" uid="uid://4de4nosgm5gn" path="res://entities/actors/enemy/straight_line_enemy.tscn" id="3_1io6m"]
 
 [node name="Test" type="Node2D"]
 
 [node name="Background" parent="." instance=ExtResource("1_5vlkb")]
-PulseInterval = 0.5
 
 [node name="Player" parent="." instance=ExtResource("2_jljom")]
 position = Vector2(192, 192)
-scale = Vector2(0.75, 0.75)
 
-[node name="SquareEnemy" parent="." instance=ExtResource("2_dt3ku")]
-position = Vector2(576, 320)
+[node name="StraightLineEnemy" parent="." instance=ExtResource("3_1io6m")]
+position = Vector2(448, 320)
+
+[node name="StraightLineComponent2" parent="StraightLineEnemy" index="2" node_paths=PackedStringArray("Stepper")]
+Direction = Vector2i(1, 0)
+Stepper = NodePath("StepComponent")
+
+[node name="StraightLineEnemy2" parent="." instance=ExtResource("3_1io6m")]
+position = Vector2(704, 576)
+
+[editable path="StraightLineEnemy"]
+[editable path="StraightLineEnemy2"]

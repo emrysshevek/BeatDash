@@ -5,12 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://b6ir4n3xkvgqj" path="res://components/movement/step_component.tscn" id="3_nh17c"]
 
 [node name="StraightLineEnemy" instance=ExtResource("1_imnlt")]
+collision_layer = 4
+collision_mask = 5
+motion_mode = 1
 
 [node name="StraightLineComponent2" parent="." index="2" instance=ExtResource("2_sgh2j")]
-Direction = Vector2i(1, 1)
 
 [node name="StepComponent" parent="StraightLineComponent2" index="0" node_paths=PackedStringArray("Body") instance=ExtResource("3_nh17c")]
-Speed = 2
-ToleranceRatio = 0.0
-Transition = 5
 Body = NodePath("../..")

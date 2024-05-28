@@ -54,6 +54,7 @@ public partial class StepComponent : Node, IntervalSignalable
 
 	public void OnIntervalElapsed()
 	{
+		GD.Print($"{StepInterval} interval elapsed @ {Metronome.TotalElapsedTime}");
 		Move();
 	}
 
