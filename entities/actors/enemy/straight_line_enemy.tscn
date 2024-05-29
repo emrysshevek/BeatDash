@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://4de4nosgm5gn"]
+[gd_scene load_steps=4 format=3 uid="uid://4de4nosgm5gn"]
 
 [ext_resource type="PackedScene" uid="uid://b6vf7xrp51cib" path="res://entities/actors/enemy/base_enemy.tscn" id="1_imnlt"]
 [ext_resource type="PackedScene" uid="uid://d1qe8j2vcl8xn" path="res://components/movement/velocity_mover.tscn" id="2_rncro"]
+[ext_resource type="PackedScene" uid="uid://cjvewe6w6uyqn" path="res://components/collision/bump_collider.tscn" id="3_ilhpw"]
 
 [node name="StraightLineEnemy" instance=ExtResource("1_imnlt")]
 collision_layer = 4
@@ -9,4 +10,7 @@ collision_mask = 1
 motion_mode = 1
 
 [node name="VelocityMover" parent="." index="2" node_paths=PackedStringArray("Body") instance=ExtResource("2_rncro")]
+Body = NodePath("..")
+
+[node name="BumpCollider" parent="." index="3" node_paths=PackedStringArray("Body") instance=ExtResource("3_ilhpw")]
 Body = NodePath("..")
