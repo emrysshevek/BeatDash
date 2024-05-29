@@ -1,4 +1,5 @@
 using Godot;
+using Microsoft.VisualBasic.FileIO;
 
 public partial class VelocityMover : Area2D, IBumpable
 {
@@ -9,7 +10,10 @@ public partial class VelocityMover : Area2D, IBumpable
 
     public override void _Ready()
     {
-        Body.Velocity = Body.Transform.BasisXform(Vector2.Up).Normalized() * Speed * Global.TileSize;
+        var metronome = GetNode<Metronome>("/root/Metronome");
+        var speed = Global.TileSize * Speed * (1 / (float)metronome.SecondsPerBeat);
+        var direction = Body.Transform.BasisXform(Vector2.Up).Normalized();
+        Body.Velocity = speed * direction;
     }
 
     public override void _PhysicsProcess(double delta)

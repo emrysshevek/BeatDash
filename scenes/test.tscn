@@ -11,10 +11,6 @@
 [node name="Player" parent="." instance=ExtResource("2_jljom")]
 position = Vector2(192, 192)
 
-[node name="StraightLineEnemy" parent="." instance=ExtResource("3_1io6m")]
-modulate = Color(0, 1, 0, 1)
-position = Vector2(576, 576)
-
 [node name="StraightLineEnemy2" parent="." instance=ExtResource("3_1io6m")]
 position = Vector2(320, 320)
 rotation = 1.5708
