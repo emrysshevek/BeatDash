@@ -12,14 +12,9 @@
 position = Vector2(192, 192)
 
 [node name="StraightLineEnemy" parent="." instance=ExtResource("3_1io6m")]
-position = Vector2(448, 320)
-
-[node name="StraightLineComponent2" parent="StraightLineEnemy" index="2" node_paths=PackedStringArray("Stepper")]
-Direction = Vector2i(1, 0)
-Stepper = NodePath("StepComponent")
+modulate = Color(0, 1, 0, 1)
+position = Vector2(576, 576)
 
 [node name="StraightLineEnemy2" parent="." instance=ExtResource("3_1io6m")]
-position = Vector2(704, 576)
-
-[editable path="StraightLineEnemy"]
-[editable path="StraightLineEnemy2"]
+position = Vector2(320, 320)
+rotation = 1.5708
