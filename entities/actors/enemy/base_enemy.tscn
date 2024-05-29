@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://dfeds31uixvuq" path="res://icon.svg" id="1_3r50i"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ghf53"]
-radius = 62.2977
 
 [node name="BaseEnemy" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
