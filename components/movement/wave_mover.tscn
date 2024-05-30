@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbhkcc1qj67r"]
+
+[ext_resource type="Script" path="res://components/movement/WaveMover.cs" id="1_strm7"]
+
+[node name="WaveMover" type="Node"]
+script = ExtResource("1_strm7")
+Amplitude = 1.0
+WaveLength = 1.0
+Speed = 1.0

@@ -2,15 +2,26 @@
 
 [ext_resource type="PackedScene" uid="uid://bbwuhq5a4pofj" path="res://scenes/background.tscn" id="1_5vlkb"]
 [ext_resource type="PackedScene" uid="uid://b6vf7xrp51cib" path="res://entities/actors/enemy/base_enemy.tscn" id="2_355aj"]
-[ext_resource type="PackedScene" uid="uid://dncccyyoapb1v" path="res://components/movement/circle_mover.tscn" id="3_5sqqy"]
+[ext_resource type="PackedScene" uid="uid://bbhkcc1qj67r" path="res://components/movement/wave_mover.tscn" id="3_urymc"]
 
 [node name="Test" type="Node2D"]
 
 [node name="Background" parent="." instance=ExtResource("1_5vlkb")]
 
 [node name="BaseEnemy" parent="." instance=ExtResource("2_355aj")]
-position = Vector2(448, 320)
+position = Vector2(64, 192)
 
-[node name="CircleMover" parent="BaseEnemy" node_paths=PackedStringArray("Body") instance=ExtResource("3_5sqqy")]
-RotationsPerBeat = 0.25
+[node name="WaveMover" parent="BaseEnemy" node_paths=PackedStringArray("Body") instance=ExtResource("3_urymc")]
+WaveLength = 2.0
+Body = NodePath("..")
+
+[node name="BaseEnemy2" parent="." instance=ExtResource("2_355aj")]
+modulate = Color(0, 1, 0, 1)
+position = Vector2(64, 192)
+
+[node name="WaveMover" parent="BaseEnemy2" node_paths=PackedStringArray("Body") instance=ExtResource("3_urymc")]
+Amplitude = 1.045
+WaveLength = 2.0
+Phase = 0.5
+_rotation = 45.0
 Body = NodePath("..")
