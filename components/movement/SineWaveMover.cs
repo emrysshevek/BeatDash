@@ -3,13 +3,21 @@ using System;
 
 public partial class SineWaveMover : BaseWaveMover
 {
-
+    private float _cachedPhase;
+    public override float Phase 
+    { 
+        get => _phase / (2 * Mathf.Pi );
+        set
+        {
+            _phase = 2 * Mathf.Pi * value;
+        }
+    }
     public override void _PhysicsProcess(double delta)
     {
         Move(delta);
         
         // Calculate relative offset
-        var offset = new Vector2(0, _amplitude * Mathf.Cos(2 * Mathf.Pi * _frequency * _t));
+        var offset = new Vector2(0, _amplitude * Mathf.Cos(2 * Mathf.Pi * _frequency * _t + _phase));
         // GD.Print($"Regular offset={offset}, a={_amplitude}, f={_frequency}");
 
         // Rotate based on current direction vector

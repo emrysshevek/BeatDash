@@ -32,15 +32,15 @@ public partial class BaseWaveMover : BaseMover
     // Phase is a ratio of Wavelength
     protected float _t = 0;
     protected float _phase = 0;
+    protected float _cachedPhase;
     [Export(PropertyHint.Range, "0,1,")]
-    public float Phase
+    public virtual float Phase
     {
         get => _phase;
         set 
-        {
-            var newPhase = value * WaveLength;
-            _t += newPhase - _phase; 
-            _phase = newPhase;
+        { 
+            _cachedPhase = value;
+            _phase = value;
         }
     }
 
@@ -70,6 +70,9 @@ public partial class BaseWaveMover : BaseMover
         _m = GetNode<Metronome>("/root/Metronome");
         Speed = _cachedSpeed;
         WaveLength = _cachedWavelength;
+        Phase = _cachedPhase;
+        GD.Print($"speed: {_speed}, wave length: {_wavelength}, phase: {_phase}");
+        GD.Print($"-1/2 mode 2 = {Mathf.PosMod(-1f/2f, 2)}");
         Body.Velocity = _speed * Vector2.Right.Rotated(Mathf.DegToRad(-Rotation));
         Engine.TimeScale = .25f;
     }

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0ybtmwx2a0h5"]
+[gd_scene load_steps=5 format=3 uid="uid://c0ybtmwx2a0h5"]
 
 [ext_resource type="PackedScene" uid="uid://bbwuhq5a4pofj" path="res://scenes/background.tscn" id="1_5vlkb"]
 [ext_resource type="PackedScene" uid="uid://b6vf7xrp51cib" path="res://entities/actors/enemy/base_enemy.tscn" id="2_355aj"]
-[ext_resource type="PackedScene" uid="uid://bbhkcc1qj67r" path="res://components/movement/wave_mover.tscn" id="3_urymc"]
+[ext_resource type="PackedScene" uid="uid://dboo178rggbac" path="res://components/movement/sine_wave_mover.tscn" id="3_jx5ch"]
+[ext_resource type="PackedScene" uid="uid://chlafnkm3ex5y" path="res://components/movement/triangle_wave_mover.tscn" id="4_1585k"]
 
 [node name="Test" type="Node2D"]
 
@@ -11,17 +12,19 @@
 [node name="BaseEnemy" parent="." instance=ExtResource("2_355aj")]
 position = Vector2(64, 192)
 
-[node name="WaveMover" parent="BaseEnemy" node_paths=PackedStringArray("Body") instance=ExtResource("3_urymc")]
-WaveLength = 2.0
+[node name="SinWaveMover" parent="BaseEnemy" node_paths=PackedStringArray("Body") instance=ExtResource("3_jx5ch")]
+Amplitude = 1.0
+WaveLength = 1.0
+Speed = 1.0
 Body = NodePath("..")
 
-[node name="BaseEnemy2" parent="." instance=ExtResource("2_355aj")]
-modulate = Color(0, 1, 0, 1)
+[node name="BaseEnemy3" parent="." instance=ExtResource("2_355aj")]
+modulate = Color(1, 1, 0, 1)
 position = Vector2(64, 192)
 
-[node name="WaveMover" parent="BaseEnemy2" node_paths=PackedStringArray("Body") instance=ExtResource("3_urymc")]
-Amplitude = 1.045
-WaveLength = 2.0
+[node name="TriangleWaveMover" parent="BaseEnemy3" node_paths=PackedStringArray("Body") instance=ExtResource("4_1585k")]
+Amplitude = 1.0
+WaveLength = 1.0
 Phase = 0.5
-_rotation = 45.0
+Speed = 1.0
 Body = NodePath("..")
