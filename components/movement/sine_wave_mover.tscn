@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dboo178rggbac"]
+
+[ext_resource type="Script" path="res://components/movement/SineWaveMover.cs" id="1_tvc14"]
+
+[node name="SinWaveMover" type="Node"]
+script = ExtResource("1_tvc14")
