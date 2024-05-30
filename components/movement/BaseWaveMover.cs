@@ -16,12 +16,14 @@ public partial class BaseWaveMover : BaseMover
     // Frequency is calculated based on speed and wavelength so they are both consistent
     protected float _frequency = 1;
     protected float _wavelength = Global.TileSize;
+    private float _cachedWavelength;
     [Export]
     public float WaveLength
     {
         get => _wavelength / Global.TileSize;
         set 
         { 
+            _cachedWavelength = value;
             _wavelength = value * Global.TileSize;
             _frequency = _speed / _wavelength; 
         }
@@ -44,14 +46,15 @@ public partial class BaseWaveMover : BaseMover
 
     // Speed is strictly the propagation speed in the indicated direction, not the absolute speed of the object
     protected float _speed = Global.TileSize;
+    private float _cachedSpeed;
     [Export]
     public float Speed
     {
         get => _speed / Global.TileSize;
         set 
         { 
-            var speedScale = _m == null ? 1f : (float)(1/_m.SecondsPerBeat);
-            _speed = value * Global.TileSize * speedScale; 
+            _cachedSpeed = value;
+            _speed = value * Global.TileSize / (float)(_m == null ? 1f : _m.SecondsPerBeat); 
         }
     }
 
@@ -65,11 +68,22 @@ public partial class BaseWaveMover : BaseMover
     public override void _Ready()
     {
         _m = GetNode<Metronome>("/root/Metronome");
+        Speed = _cachedSpeed;
+        WaveLength = _cachedWavelength;
         Body.Velocity = _speed * Vector2.Right.Rotated(Mathf.DegToRad(-Rotation));
+        Engine.TimeScale = .25f;
     }
 
-    public override void _PhysicsProcess(double delta)
+    public Transform2D GetBasis()
     {
-        
+        var xbasis = Body.Velocity.Normalized();
+        var ybasis = xbasis.Rotated(Mathf.DegToRad(90));
+        return new Transform2D(xbasis, ybasis, Body.Position);
     }
+
+    public Vector2 GetRotatedOffset(Vector2 offset)
+    {
+        return GetBasis().BasisXform(offset);
+    }
+
 }
