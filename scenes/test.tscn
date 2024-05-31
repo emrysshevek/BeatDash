@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://bbwuhq5a4pofj" path="res://scenes/background.tscn" id="1_5vlkb"]
 [ext_resource type="PackedScene" uid="uid://b6vf7xrp51cib" path="res://entities/actors/enemy/base_enemy.tscn" id="2_355aj"]
-[ext_resource type="PackedScene" uid="uid://dboo178rggbac" path="res://components/movement/sine_wave_mover.tscn" id="3_jx5ch"]
-[ext_resource type="PackedScene" uid="uid://chlafnkm3ex5y" path="res://components/movement/triangle_wave_mover.tscn" id="4_1585k"]
+[ext_resource type="PackedScene" uid="uid://dboo178rggbac" path="res://components/movement/wave/sine_wave_mover.tscn" id="3_jx5ch"]
+[ext_resource type="PackedScene" uid="uid://dpm1em5dksrid" path="res://components/movement/wave/sawtooth_wave_mover.tscn" id="4_5ar2s"]
 
 [node name="Test" type="Node2D"]
 
@@ -22,9 +22,8 @@ Body = NodePath("..")
 modulate = Color(1, 1, 0, 1)
 position = Vector2(64, 192)
 
-[node name="TriangleWaveMover" parent="BaseEnemy3" node_paths=PackedStringArray("Body") instance=ExtResource("4_1585k")]
+[node name="SawtoothWaveMover" parent="BaseEnemy3" node_paths=PackedStringArray("Body") instance=ExtResource("4_5ar2s")]
 Amplitude = 1.0
 WaveLength = 1.0
-Phase = 0.5
 Speed = 1.0
 Body = NodePath("..")

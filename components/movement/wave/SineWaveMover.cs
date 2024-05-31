@@ -3,7 +3,6 @@ using System;
 
 public partial class SineWaveMover : BaseWaveMover
 {
-    private float _cachedPhase;
     public override float Phase 
     { 
         get => _phase / (2 * Mathf.Pi );
