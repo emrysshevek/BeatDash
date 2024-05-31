@@ -1,20 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0ybtmwx2a0h5"]
+[gd_scene load_steps=5 format=3 uid="uid://c0ybtmwx2a0h5"]
 
 [ext_resource type="PackedScene" uid="uid://bbwuhq5a4pofj" path="res://scenes/background.tscn" id="1_5vlkb"]
-[ext_resource type="PackedScene" uid="uid://dpswa70jplyuu" path="res://entities/actors/player/player.tscn" id="2_jljom"]
-[ext_resource type="PackedScene" uid="uid://4de4nosgm5gn" path="res://entities/actors/enemy/straight_line_enemy.tscn" id="3_1io6m"]
+[ext_resource type="PackedScene" uid="uid://b6vf7xrp51cib" path="res://entities/actors/enemy/base_enemy.tscn" id="2_355aj"]
+[ext_resource type="PackedScene" uid="uid://dboo178rggbac" path="res://components/movement/wave/sine_wave_mover.tscn" id="3_jx5ch"]
+[ext_resource type="PackedScene" uid="uid://bum4c4ghs8g7a" path="res://components/movement/wave/square_wave_mover.tscn" id="4_svkdk"]
 
 [node name="Test" type="Node2D"]
 
 [node name="Background" parent="." instance=ExtResource("1_5vlkb")]
 
-[node name="Player" parent="." instance=ExtResource("2_jljom")]
-position = Vector2(192, 192)
+[node name="BaseEnemy" parent="." instance=ExtResource("2_355aj")]
+position = Vector2(64, 192)
 
-[node name="StraightLineEnemy" parent="." instance=ExtResource("3_1io6m")]
-modulate = Color(0, 1, 0, 1)
-position = Vector2(576, 576)
+[node name="SinWaveMover" parent="BaseEnemy" node_paths=PackedStringArray("Body") instance=ExtResource("3_jx5ch")]
+Amplitude = 1.0
+WaveLength = 1.0
+Speed = 1.0
+Body = NodePath("..")
 
-[node name="StraightLineEnemy2" parent="." instance=ExtResource("3_1io6m")]
-position = Vector2(320, 320)
-rotation = 1.5708
+[node name="BaseEnemy3" parent="." instance=ExtResource("2_355aj")]
+modulate = Color(1, 1, 0, 1)
+position = Vector2(64, 192)
+
+[node name="SquareWaveMover" parent="BaseEnemy3" node_paths=PackedStringArray("Body") instance=ExtResource("4_svkdk")]
+Amplitude = 1.0
+WaveLength = 1.0
+Speed = 1.0
+Body = NodePath("..")

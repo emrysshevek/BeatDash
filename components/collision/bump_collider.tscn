@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjvewe6w6uyqn"]
+
+[ext_resource type="Script" path="res://components/collision/BumpCollider.cs" id="1_fe1ky"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ycyt0"]
+radius = 1.0
+
+[node name="BumpCollider" type="Area2D"]
+script = ExtResource("1_fe1ky")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ycyt0")
+
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]

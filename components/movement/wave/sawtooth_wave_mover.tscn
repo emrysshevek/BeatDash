@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpm1em5dksrid"]
+
+[ext_resource type="Script" path="res://components/movement/wave/SawtoothWaveMover.cs" id="1_q044m"]
+
+[node name="SawtoothWaveMover" type="Node"]
+script = ExtResource("1_q044m")

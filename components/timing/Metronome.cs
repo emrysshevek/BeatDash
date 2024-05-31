@@ -33,6 +33,14 @@ public partial class Metronome : Node
 	public double GetSecondsUntilInterval(float interval) => GetSecondsPerInterval(interval) - getSecondsSinceInterval(interval);
 	public double GetSecondsUntilInterval(int interval) => GetSecondsPerInterval(interval) - getSecondsSinceInterval(interval);
 
+    public override void _Ready()
+    {
+        if (_nextBpm > 0)
+		{
+			_bpm = _nextBpm;
+		}
+    }
+
     public override void _PhysicsProcess(double delta)
     {
 		// Check if any frequencies have elapsed and call all subscribers

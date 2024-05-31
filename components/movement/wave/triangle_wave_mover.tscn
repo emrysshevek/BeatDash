@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://chlafnkm3ex5y"]
+
+[ext_resource type="Script" path="res://components/movement/wave/TriangleWaveMover.cs" id="1_01cn0"]
+
+[node name="TriangleWaveMover" type="Node"]
+script = ExtResource("1_01cn0")

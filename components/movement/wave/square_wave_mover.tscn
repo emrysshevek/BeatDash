@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bum4c4ghs8g7a"]
+
+[ext_resource type="Script" path="res://components/movement/wave/SquareWaveMover.cs" id="1_bgfb4"]
+
+[node name="SquareWaveMover" type="Node"]
+script = ExtResource("1_bgfb4")
