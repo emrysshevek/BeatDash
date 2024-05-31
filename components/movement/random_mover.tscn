@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://chhp74dru5y8e"]
+
+[ext_resource type="Script" path="res://components/movement/RandomMover.cs" id="1_fyuuv"]
+
+[node name="RandomMover" type="Node"]
+script = ExtResource("1_fyuuv")
