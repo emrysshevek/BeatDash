@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://jl8omhf8k8xo"]
+
+[ext_resource type="Script" path="res://components/collision/BaseCollider.cs" id="1_882bd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3gm41"]
+radius = 1.0
+
+[node name="BaseCollider" type="Area2D"]
+monitoring = false
+script = ExtResource("1_882bd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3gm41")

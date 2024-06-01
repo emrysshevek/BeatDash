@@ -1,29 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0ybtmwx2a0h5"]
+[gd_scene load_steps=6 format=3 uid="uid://c0ybtmwx2a0h5"]
 
 [ext_resource type="PackedScene" uid="uid://bbwuhq5a4pofj" path="res://scenes/background.tscn" id="1_5vlkb"]
 [ext_resource type="PackedScene" uid="uid://b6vf7xrp51cib" path="res://entities/actors/enemy/base_enemy.tscn" id="2_355aj"]
-[ext_resource type="PackedScene" uid="uid://dboo178rggbac" path="res://components/movement/wave/sine_wave_mover.tscn" id="3_jx5ch"]
-[ext_resource type="PackedScene" uid="uid://bum4c4ghs8g7a" path="res://components/movement/wave/square_wave_mover.tscn" id="4_svkdk"]
+[ext_resource type="PackedScene" uid="uid://d1qe8j2vcl8xn" path="res://components/movement/velocity_mover.tscn" id="3_s0vte"]
+[ext_resource type="PackedScene" uid="uid://cjvewe6w6uyqn" path="res://components/collision/bump_collider.tscn" id="4_2cxe3"]
+[ext_resource type="PackedScene" uid="uid://choe3pdrktybj" path="res://components/collision/reflect_collider.tscn" id="4_ca648"]
 
 [node name="Test" type="Node2D"]
 
 [node name="Background" parent="." instance=ExtResource("1_5vlkb")]
 
 [node name="BaseEnemy" parent="." instance=ExtResource("2_355aj")]
-position = Vector2(64, 192)
+position = Vector2(320, 192)
 
-[node name="SinWaveMover" parent="BaseEnemy" node_paths=PackedStringArray("Body") instance=ExtResource("3_jx5ch")]
-Amplitude = 1.0
-WaveLength = 1.0
-Speed = 1.0
+[node name="ReflectCollider" parent="BaseEnemy" node_paths=PackedStringArray("Body") instance=ExtResource("4_ca648")]
 Body = NodePath("..")
 
 [node name="BaseEnemy3" parent="." instance=ExtResource("2_355aj")]
 modulate = Color(1, 1, 0, 1)
-position = Vector2(64, 192)
+position = Vector2(320, 448)
+rotation = -1.5708
 
-[node name="SquareWaveMover" parent="BaseEnemy3" node_paths=PackedStringArray("Body") instance=ExtResource("4_svkdk")]
-Amplitude = 1.0
-WaveLength = 1.0
-Speed = 1.0
+[node name="BumpCollider" parent="BaseEnemy3" node_paths=PackedStringArray("Body") instance=ExtResource("4_2cxe3")]
+Body = NodePath("..")
+
+[node name="VelocityMover" parent="BaseEnemy3" node_paths=PackedStringArray("Body") instance=ExtResource("3_s0vte")]
 Body = NodePath("..")

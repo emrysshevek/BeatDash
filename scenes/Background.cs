@@ -21,8 +21,8 @@ public partial class Background : Node2D, IntervalSignalable
 
 	public void OnIntervalElapsed()
 	{
-		GD.Print($"{1 / AP.SpeedScale} sec Background Pulse @ {Metronome.TotalElapsedTime}");
-		GD.Print($"SpeedScale={AP.SpeedScale}, Interval={PulseInterval}");
+		// GD.Print($"{1 / AP.SpeedScale} sec Background Pulse @ {Metronome.TotalElapsedTime}");
+		// GD.Print($"SpeedScale={AP.SpeedScale}, Interval={PulseInterval}");
 
 		AP.Stop(keepState: true);
 

@@ -1,27 +1,28 @@
 using Godot;
-using System;
 
-public partial class BumpCollider : Area2D, IBumpable
+public partial class BumpCollider : BaseCollider, IBumpable, IReflectable
 {
-	[Export]
-	public CharacterBody2D Body; 
-
-	  public void Bump(Vector2 velocity)
+	public void Bump(Vector2 velocity)
     {
         GD.Print($"Bump velocity = {velocity}");
         Body.SetDeferred(CharacterBody2D.PropertyName.Position, Body.Position + velocity.Normalized());
         Body.SetDeferred(CharacterBody2D.PropertyName.Velocity, velocity);
     }
 
-	private void OnAreaEntered(Area2D area)
+    public override void OnColliderIntersection(BaseCollider collider)
     {
-        GD.Print($"{area} entered area. This position={GlobalPosition}, body={Body.GlobalPosition}, other={area.GlobalPosition}");
-        if (area.GlobalPosition.Round() == Body.GlobalPosition.Round() && area is IBumpable obj)
-        {
-            Body.GlobalPosition = Body.GlobalPosition.Round();
+        if (collider is IBumpable obj)
+		{
+			Body.GlobalPosition = Body.GlobalPosition.Round();
             GD.Print("BUMP");
             obj.Bump(Body.Velocity);
             Body.Velocity = Vector2.Zero;
-        }
+		}
     }
+
+    public void Reflect(Vector2 addedVelocity = new Vector2())
+    {
+        Body.Velocity = addedVelocity - Body.Velocity;
+    }
+
 }
