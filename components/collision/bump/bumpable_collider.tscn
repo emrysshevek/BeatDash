@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bh3alwtnwwgg7"]
+
+[ext_resource type="PackedScene" uid="uid://jl8omhf8k8xo" path="res://components/collision/base_collider.tscn" id="1_o16oi"]
+[ext_resource type="Script" path="res://components/collision/bump/BumpableCollider.cs" id="2_iwoo8"]
+
+[node name="BumpableCollider" instance=ExtResource("1_o16oi")]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("2_iwoo8")

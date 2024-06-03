@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxivlddqemo57"]
+
+[ext_resource type="Script" path="res://components/collision/destroy/DestructiveCollider.cs" id="1_ynahl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3vlaa"]
+radius = 1.0
+
+[node name="DestructiveCollider" type="Area2D"]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("1_ynahl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3vlaa")
+
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]

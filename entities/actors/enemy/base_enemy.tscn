@@ -1,16 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://b6vf7xrp51cib"]
+[gd_scene load_steps=3 format=3 uid="uid://d12hquew4xm0u"]
 
 [ext_resource type="Texture2D" uid="uid://dfeds31uixvuq" path="res://icon.svg" id="1_3r50i"]
+[ext_resource type="PackedScene" uid="uid://6fqcxatir1u" path="res://entities/base_actor.tscn" id="1_rsmng"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ghf53"]
+[node name="BaseActor" instance=ExtResource("1_rsmng")]
+modulate = Color(1, 0, 0, 1)
+collision_layer = 4
 
-[node name="BaseEnemy" type="CharacterBody2D"]
-scale = Vector2(0.5, 0.5)
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_ghf53")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 0.571068, 0.508893, 1)
+[node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("1_3r50i")
