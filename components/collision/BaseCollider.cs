@@ -9,23 +9,24 @@ public partial class BaseCollider : Area2D
     public delegate void ColliderIntersectedEventHandler(BaseCollider area);
 
 	[Export]
-	public CharacterBody2D Body;
-	[Export]
-	public float Radius = 64;
+	public BaseActor Body;
 
     protected List<BaseCollider> Intersections;
 
-    public override void _PhysicsProcess(double delta)
+    public void OnAreaEntered(Area2D area)
     {
-        GD.Print($"Current position: {GlobalPosition.Round()}");
-        foreach (var area in GetOverlappingAreas())
+      if (area is BaseCollider collider)
+      {
+        if (collider.Body == this.Body) return;
+        
+        GD.Print("Area entered");
+        if(area.GlobalPosition.Round() == Body.GlobalPosition.Round())
         {
-            GD.Print($"Intersected area position: {area.GlobalPosition.Round()}");
-            if (area.GlobalPosition.Round() == Body.GlobalPosition.Round() && area is BaseCollider collider)
-            {
-                OnColliderIntersection(collider);
-            }
+          area.GlobalPosition = area.GlobalPosition.Round();
+          Body.GlobalPosition = Body.GlobalPosition.Round();
+          OnColliderIntersection(collider);
         }
+      }
     }
 
     public virtual void OnColliderIntersection(BaseCollider collider)

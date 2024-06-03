@@ -16,7 +16,7 @@ public partial class BaseMover: Node
         if (Body.GlobalPosition.Round() == GetNearestCellCenter(Body.GlobalPosition))
         {
             Body.GlobalPosition = GetNearestCellCenter(Body.GlobalPosition);
-            GD.Print($"Snapping position to cell at {Body.GlobalPosition}");
+            GD.Print($"Snapping {Body} position to cell at {Body.GlobalPosition}");
         }
     }
 

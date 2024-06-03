@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bomem644lcxuc"]
+
+[ext_resource type="PackedScene" uid="uid://jl8omhf8k8xo" path="res://components/collision/base_collider.tscn" id="1_bwkex"]
+[ext_resource type="Script" path="res://components/collision/reflect/ReflectableCollider.cs" id="2_87n23"]
+
+[node name="ReflectableCollider" instance=ExtResource("1_bwkex")]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("2_87n23")
