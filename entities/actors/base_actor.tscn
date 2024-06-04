@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://6fqcxatir1u"]
 
-[ext_resource type="Script" path="res://entities/BaseActor.cs" id="1_mkv36"]
+[ext_resource type="Script" path="res://entities/actors/BaseActor.cs" id="1_mkv36"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g42ap"]
 radius = 64.0

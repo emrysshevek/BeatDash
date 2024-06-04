@@ -10,7 +10,8 @@ public partial class BaseMover: Node
         var collision = Body.MoveAndCollide(Body.Velocity * (float)delta);
         if (collision != null)
         {
-            Body.Velocity.Bounce(collision.GetNormal());
+             GD.Print("Collision with wall");
+            Body.Velocity = Body.Velocity.Bounce(collision.GetNormal());
         }
 
         if (Body.GlobalPosition.Round() == GetNearestCellCenter(Body.GlobalPosition))
