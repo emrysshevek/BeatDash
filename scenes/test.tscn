@@ -2,10 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://qaxjcmp2vvlv" path="res://assets/background_tile.png" id="1_qjghx"]
 [ext_resource type="PackedScene" uid="uid://d12hquew4xm0u" path="res://entities/actors/enemy/base_enemy.tscn" id="2_355aj"]
-[ext_resource type="PackedScene" uid="uid://dq5tnmdqlbidm" path="res://entities/wall.tscn" id="2_gpi1i"]
-[ext_resource type="PackedScene" uid="uid://d1qe8j2vcl8xn" path="res://components/movement/velocity_mover.tscn" id="3_s0vte"]
+[ext_resource type="PackedScene" uid="uid://cgonbatih82nt" path="res://entities/wall.tscn" id="2_gpi1i"]
 [ext_resource type="PackedScene" uid="uid://bh3alwtnwwgg7" path="res://components/collision/bump/bumpable_collider.tscn" id="4_o6fwe"]
 [ext_resource type="PackedScene" uid="uid://cjvewe6w6uyqn" path="res://components/collision/bump/bump_collider.tscn" id="5_u54vr"]
+[ext_resource type="PackedScene" uid="uid://dboo178rggbac" path="res://components/movement/wave/sine_wave_mover.tscn" id="6_3ll3y"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_heaav"]
 
@@ -40,40 +40,121 @@ expand_mode = 1
 stretch_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Wall" parent="." instance=ExtResource("2_gpi1i")]
-position = Vector2(320, 712)
-
-[node name="Wall4" parent="." instance=ExtResource("2_gpi1i")]
-position = Vector2(1216, 192)
-
-[node name="Wall3" parent="." instance=ExtResource("2_gpi1i")]
-position = Vector2(64, 192)
-
-[node name="Wall2" parent="." instance=ExtResource("2_gpi1i")]
-position = Vector2(320, 64)
-
 [node name="BaseActor" parent="." instance=ExtResource("2_355aj")]
-position = Vector2(192, 192)
-
-[node name="VelocityMover" parent="BaseActor" node_paths=PackedStringArray("Body") instance=ExtResource("3_s0vte")]
-Body = NodePath("..")
+position = Vector2(320, 320)
 
 [node name="BumpableCollider" parent="BaseActor" node_paths=PackedStringArray("Body") instance=ExtResource("4_o6fwe")]
+monitoring = true
 Body = NodePath("..")
 
 [node name="BumpCollider" parent="BaseActor" node_paths=PackedStringArray("Body") instance=ExtResource("5_u54vr")]
 Body = NodePath("..")
 
-[node name="BaseActor2" parent="." instance=ExtResource("2_355aj")]
-modulate = Color(0, 1, 0, 1)
-position = Vector2(320, 448)
-rotation = -1.5708
-
-[node name="VelocityMover" parent="BaseActor2" node_paths=PackedStringArray("Body") instance=ExtResource("3_s0vte")]
+[node name="SinWaveMover" parent="BaseActor" node_paths=PackedStringArray("Body") instance=ExtResource("6_3ll3y")]
+Amplitude = 1.0
+WaveLength = 2.0
+Speed = 1.0
 Body = NodePath("..")
 
+[node name="BaseActor2" parent="." instance=ExtResource("2_355aj")]
+modulate = Color(0, 1, 0, 1)
+position = Vector2(832, 320)
+
 [node name="BumpableCollider" parent="BaseActor2" node_paths=PackedStringArray("Body") instance=ExtResource("4_o6fwe")]
+monitoring = true
 Body = NodePath("..")
 
 [node name="BumpCollider" parent="BaseActor2" node_paths=PackedStringArray("Body") instance=ExtResource("5_u54vr")]
 Body = NodePath("..")
+
+[node name="SinWaveMover" parent="BaseActor2" node_paths=PackedStringArray("Body") instance=ExtResource("6_3ll3y")]
+Amplitude = 1.0
+WaveLength = 2.0
+Speed = 1.0
+Body = NodePath("..")
+
+[node name="walls" type="Node2D" parent="."]
+
+[node name="Wall" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(1216, 576)
+
+[node name="Wall17" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(1216, 704)
+
+[node name="Wall6" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(1088, 704)
+
+[node name="Wall7" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(960, 704)
+
+[node name="Wall8" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(832, 704)
+
+[node name="Wall9" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(704, 704)
+
+[node name="Wall10" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(576, 704)
+
+[node name="Wall11" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(448, 704)
+
+[node name="Wall12" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(320, 704)
+
+[node name="Wall13" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(192, 704)
+
+[node name="Wall4" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(1216, 320)
+
+[node name="Wall18" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(1216, 192)
+
+[node name="Wall19" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(1216, 64)
+
+[node name="Wall20" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(1088, 64)
+
+[node name="Wall21" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(960, 64)
+
+[node name="Wall22" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(832, 64)
+
+[node name="Wall5" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(1216, 448)
+
+[node name="Wall3" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(64, 320)
+
+[node name="Wall14" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(64, 448)
+
+[node name="Wall15" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(64, 576)
+
+[node name="Wall16" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(64, 704)
+
+[node name="Wall2" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(704, 64)
+
+[node name="Wall23" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(576, 64)
+
+[node name="Wall24" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(448, 64)
+
+[node name="Wall25" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(320, 64)
+
+[node name="Wall26" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(192, 64)
+
+[node name="Wall27" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(64, 64)
+
+[node name="Wall28" parent="walls" instance=ExtResource("2_gpi1i")]
+position = Vector2(64, 192)

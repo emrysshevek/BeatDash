@@ -7,8 +7,8 @@ public partial class VelocityMover: BaseMover
 
     public override void _Ready()
     {
-        var metronome = GetNode<Metronome>("/root/Metronome");
-        var speed = Global.TileSize * Speed * (1 / (float)metronome.SecondsPerBeat);
+        base._Ready();
+        var speed = Global.TileSize * Speed * (1 / (float)Metronome.SecondsPerBeat);
         var direction = Body.Transform.BasisXform(Vector2.Right).Normalized();
         Body.Velocity = speed * direction;
     }
