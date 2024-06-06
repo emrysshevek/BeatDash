@@ -2,6 +2,12 @@ using Godot;
 
 public partial class BumpCollider : BaseCollider
 {
+
+  public override void _Ready()
+  {
+    base._Ready();
+  }
+  
   public override void OnColliderIntersection(BaseCollider collider)
   {
     if (collider is IBumpable obj)

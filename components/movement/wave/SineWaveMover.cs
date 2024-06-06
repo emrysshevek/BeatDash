@@ -17,10 +17,10 @@ public partial class SineWaveMover : BaseWaveMover
         
         // Calculate relative offset
         var offset = new Vector2(0, _amplitude * Mathf.Cos(2 * Mathf.Pi * _frequency * _t + _phase));
-        // GD.Print($"Regular offset={offset}, a={_amplitude}, f={_frequency}");
 
         // Rotate based on current direction vector
         var rotatedOffset = GetBasis().BasisXform(offset);
+        GD.Print($"Basis={GetBasis()}, Regular offset={offset}, rotated offset={rotatedOffset}");
 
         // Offset object's position
         Body.Position += rotatedOffset - _prevOffset;
