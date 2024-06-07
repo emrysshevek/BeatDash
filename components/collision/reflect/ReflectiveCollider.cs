@@ -8,6 +8,7 @@ public partial class ReflectiveCollider : BaseCollider
 
   public override void OnColliderIntersection(BaseCollider collider)
   {
+    base.OnColliderIntersection(collider);
     if (collider is IReflectable obj)
     {
       if (AddVelocity) obj.Reflect(Body.Velocity);

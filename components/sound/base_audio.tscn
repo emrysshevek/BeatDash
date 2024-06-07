@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmsifby6qrped"]
+
+[ext_resource type="Script" path="res://components/sound/BaseAudio.cs" id="2_xylve"]
+
+[node name="BaseAudio" type="Node2D"]
+script = ExtResource("2_xylve")

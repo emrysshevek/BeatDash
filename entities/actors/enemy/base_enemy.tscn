@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://d12hquew4xm0u"]
 
-[ext_resource type="Texture2D" uid="uid://dfeds31uixvuq" path="res://icon.svg" id="1_3r50i"]
 [ext_resource type="PackedScene" path="res://entities/actors/base_actor.tscn" id="1_rsmng"]
+[ext_resource type="Texture2D" uid="uid://div0ix3ousf8y" path="res://assets/green.png" id="2_s0wnl"]
 
-[node name="BaseActor" instance=ExtResource("1_rsmng")]
+[node name="BaseEnemy" instance=ExtResource("1_rsmng")]
 modulate = Color(1, 0, 0, 1)
 collision_layer = 4
 
 [node name="Sprite2D" parent="." index="1"]
-texture = ExtResource("1_3r50i")
+texture = ExtResource("2_s0wnl")

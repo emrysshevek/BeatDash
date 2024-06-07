@@ -56,6 +56,6 @@ public partial class BaseCollider : Area2D
 
   public virtual void OnColliderIntersection(BaseCollider collider)
   {
-      throw new NotImplementedException();
+    Body.SignalObjectCollision();
   }
 }

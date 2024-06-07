@@ -4,7 +4,7 @@ using Godot;
 public partial class BaseMover: Node
 {
     [Export]
-    public CharacterBody2D Body;
+    public BaseActor Body;
     protected Metronome Metronome;
 
     public override void _Ready()
@@ -20,6 +20,7 @@ public partial class BaseMover: Node
         {
             // GD.Print($"[{Metronome.TotalElapsedTime}] Collision with wall");
             Body.Velocity = Body.Velocity.Bounce(collision.GetNormal());
+            Body.SignalWallCollision();
         }
 
         
@@ -33,7 +34,13 @@ public partial class BaseMover: Node
         {
             Body.SetDeferred(CharacterBody2D.PropertyName.GlobalPosition, GetNearestCellCenter(Body.GlobalPosition));
             GD.Print($"[{Metronome.TotalElapsedTime}] Snapping {Body.Name} position on beat to cell at {GetNearestCellCenter(Body.GlobalPosition)}");
+            Body.SignalCellIntersection();
         }
+    }
+
+    public Vector2 GetNearestCell(Vector2 position)
+    {
+        return (Vector2I) position / Global.TileSize;
     }
 
     public Vector2 GetNearestCellCenter(Vector2 position)
