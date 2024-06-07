@@ -40,11 +40,15 @@ public partial class BaseAudio : Node2D
 				while (fileName != "")
 				{
 					var filepath = AudioDirectory + "\\" + fileName;
-					if (!dir.CurrentIsDir())
+					if (!dir.CurrentIsDir() && !fileName.Contains(".import"))
 					{
-						var idx = fileName[fileName.Length-1] - '0';
+            GD.Print($"Loading audio file: {fileName}");
+            GD.Print($"idx: {fileName.Split(".")[0][^1] - '0'}");
+						var idx = fileName.Split(".")[0][^1] - '0';
 						if (idx < 0 || idx > 7) GD.PushWarning($"Invalid audio filename: {fileName}");
-						var player = GD.Load<AudioStreamPlayer2D>(filepath);
+						var stream = GD.Load<AudioStream>(filepath);
+            var player = new AudioStreamPlayer2D();
+            player.Stream = stream;
 						AddChild(player);
 						Players[idx] = player;
 					}
@@ -71,7 +75,8 @@ public partial class BaseAudio : Node2D
 
 	public void OnSoundTrigger()
 	{
-		var cellIdx = (Vector2I)(Position / Global.TileSize);
+		var cellIdx = (Vector2I)(GlobalPosition / Global.TileSize);
+    GD.Print($"Playing sound at position {cellIdx}");
 		Players[cellIdx.Y].Play();
 	}
 }

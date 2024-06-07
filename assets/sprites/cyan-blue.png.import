@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lojcrsrwmhpa"
-path="res://.godot/imported/triangle.png-81d9911a043b3b982b4bbd30d008317a.ctex"
+uid="uid://n7ycsy1dyead"
+path="res://.godot/imported/cyan-blue.png-68ef8ae7a0e784f59d8431abc0080776.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/triangle.png"
-dest_files=["res://.godot/imported/triangle.png-81d9911a043b3b982b4bbd30d008317a.ctex"]
+source_file="res://assets/sprites/cyan-blue.png"
+dest_files=["res://.godot/imported/cyan-blue.png-68ef8ae7a0e784f59d8431abc0080776.ctex"]
 
 [params]
 

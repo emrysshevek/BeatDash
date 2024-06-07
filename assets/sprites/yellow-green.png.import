@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxdg0q4eg0vio"
-path="res://.godot/imported/cyan.png-a73e255defb0500901aed3ad2024df8c.ctex"
+uid="uid://qvntuebcswdh"
+path="res://.godot/imported/yellow-green.png-29620ee002698c149015ece045f69790.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cyan.png"
-dest_files=["res://.godot/imported/cyan.png-a73e255defb0500901aed3ad2024df8c.ctex"]
+source_file="res://assets/sprites/yellow-green.png"
+dest_files=["res://.godot/imported/yellow-green.png-29620ee002698c149015ece045f69790.ctex"]
 
 [params]
 

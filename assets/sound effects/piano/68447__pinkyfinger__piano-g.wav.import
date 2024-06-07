@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dvt64v61do3rv"
+path="res://.godot/imported/68447__pinkyfinger__piano-g.wav-2636934900d5c48156583361c9c2832e.sample"
+
+[deps]
+
+source_file="res://assets/sound effects/piano/68447__pinkyfinger__piano-g.wav"
+dest_files=["res://.godot/imported/68447__pinkyfinger__piano-g.wav-2636934900d5c48156583361c9c2832e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
