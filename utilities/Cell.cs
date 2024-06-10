@@ -1,8 +1,36 @@
 
+using System.ComponentModel.DataAnnotations;
 using Godot;
 
-public class Cell
+public partial class Cell : Area2D
 {
-    public Vector2I GridCoordinates { get; set; }
-    public Vector2 
+    [Export]
+    public float Tolerance = 3;
+    public Vector2I Coordinates { get; set; }
+
+
+    public override void _PhysicsProcess(double delta)
+    {
+        foreach (var body in GetOverlappingBodies())
+        {
+            if (body is BaseActor actor)
+            {
+                CheckIntersection(actor);
+                CheckReflection(actor);
+            }
+        }
+    }
+
+    public void CheckIntersection(BaseActor actor)
+    {
+        if (actor.GlobalPosition.DistanceTo(GlobalPosition) <= Tolerance)
+        {
+            actor.SignalCellIntersection();
+        }
+    }
+
+    public void CheckReflection(BaseActor actor)
+    {
+        ;;
+    }
 }

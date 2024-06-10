@@ -1,6 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://dasw4c7xryvm2"]
+[gd_scene load_steps=4 format=3 uid="uid://dasw4c7xryvm2"]
 
 [ext_resource type="Script" path="res://utilities/Cell.cs" id="1_xs53r"]
+[ext_resource type="Texture2D" uid="uid://cn52c4e8kww24" path="res://assets/sprites/hexagon-tile.png" id="2_eiwvs"]
 
-[node name="Cell" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dogve"]
+size = Vector2(128, 128)
+
+[node name="Cell" type="Area2D"]
 script = ExtResource("1_xs53r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_dogve")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_eiwvs")

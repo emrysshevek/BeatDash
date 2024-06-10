@@ -34,7 +34,7 @@ public partial class BaseMover: Node
         {
             Body.SetDeferred(CharacterBody2D.PropertyName.GlobalPosition, GetNearestCellCenter(Body.GlobalPosition));
             GD.Print($"[{Metronome.TotalElapsedTime}] Snapping {Body.Name} position on beat to cell at {GetNearestCellCenter(Body.GlobalPosition)}");
-            Body.SignalCellIntersection();
+            // Body.SignalCellIntersection();
         }
     }
 
