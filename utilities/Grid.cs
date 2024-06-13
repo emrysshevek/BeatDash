@@ -18,7 +18,25 @@ public partial class Grid : Node2D
 
 	public void AddCell(Cell cell)
 	{
+		if (cell.Coordinates == Vector2I.MaxValue)
+		{
+			cell.Coordinates = (Vector2I) (cell.GlobalPosition / Global.TileSize);
+		}
+		GD.Print($"Added cell {cell.Name} at {cell.Coordinates}");
 		Cells[cell.Coordinates] = cell;
+		for (int i = -1; i < 1; i++)
+		{
+			for (int j = -1; j < 1; j++)
+			{
+				var direction = new Vector2I(i, j);
+				if (direction != Vector2I.Zero && Cells.TryGetValue(direction + cell.Coordinates, out Cell neighbor))
+                {
+					GD.Print($"Adding neighbor at {neighbor.Coordinates} to {direction}");
+                    cell.Neighbors[direction] = neighbor;
+					neighbor.Neighbors[-direction] = cell;
+                }
+			}
+		}
 	}
 
     public void CreateCell(Vector2I coord)
@@ -27,8 +45,9 @@ public partial class Grid : Node2D
 		{
 			var cell = CellScene.Instantiate<Cell>();
 			cell.Coordinates = coord;
+			cell.GlobalPosition = coord * Global.TileSize;
 			CellContainer.AddChild(cell);
-			Cells[coord] = cell;
+			AddCell(cell);
 		}
 	}
 
@@ -65,5 +84,41 @@ public partial class Grid : Node2D
             }
 		}
 		return cells;
+	}
+
+	public Vector2I GetCenterCoordinate()
+	{
+		int minx, miny, maxx, maxy;
+		minx = miny = int.MaxValue;
+		maxx = maxy = int.MinValue;
+
+		foreach (var coord in Cells.Keys)
+		{
+			if (coord.X > maxx) maxx = coord.X;
+			if (coord.X < minx) minx = coord.X;
+
+			if (coord.Y > maxy) maxy = coord.Y;
+			if (coord.Y < miny) miny = coord.Y;
+		}
+
+		return new Vector2I((maxx - minx) / 2, (maxy - miny) / 2);
+	}
+
+	public Vector2 GetCenterPosition()
+	{
+		float minx, miny, maxx, maxy;
+		minx = miny = float.PositiveInfinity;
+		maxx = maxy = float.NegativeInfinity;
+
+		foreach (Cell cell in Cells.Values)
+		{
+			if (cell.GlobalPosition.X > maxx) maxx = cell.GlobalPosition.X;
+			if (cell.GlobalPosition.X < minx) minx = cell.GlobalPosition.X;
+
+			if (cell.GlobalPosition.Y > maxy) maxy = cell.GlobalPosition.Y;
+			if (cell.GlobalPosition.Y < miny) miny = cell.GlobalPosition.Y;
+		}
+
+		return new Vector2((maxx - minx) / 2, (maxy - miny) / 2);
 	}
 }

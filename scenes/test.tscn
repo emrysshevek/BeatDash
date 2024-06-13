@@ -1,14 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://c0ybtmwx2a0h5"]
+[gd_scene load_steps=5 format=3 uid="uid://c0ybtmwx2a0h5"]
 
-[ext_resource type="Texture2D" uid="uid://qaxjcmp2vvlv" path="res://assets/sprites/background_tile.png" id="1_qjghx"]
+[ext_resource type="PackedScene" uid="uid://ju0vpyxapmgg" path="res://utilities/grid.tscn" id="1_cmcf6"]
 [ext_resource type="PackedScene" uid="uid://d12hquew4xm0u" path="res://entities/actors/enemy/base_enemy.tscn" id="2_355aj"]
-[ext_resource type="PackedScene" uid="uid://cgonbatih82nt" path="res://entities/wall.tscn" id="2_gpi1i"]
-[ext_resource type="PackedScene" uid="uid://bh3alwtnwwgg7" path="res://components/collision/bump/bumpable_collider.tscn" id="4_o6fwe"]
-[ext_resource type="PackedScene" uid="uid://cjvewe6w6uyqn" path="res://components/collision/bump/bump_collider.tscn" id="5_u54vr"]
+[ext_resource type="PackedScene" uid="uid://dasw4c7xryvm2" path="res://utilities/cell.tscn" id="2_ekrsj"]
 [ext_resource type="PackedScene" uid="uid://d1qe8j2vcl8xn" path="res://components/movement/velocity_mover.tscn" id="6_406jo"]
-[ext_resource type="PackedScene" uid="uid://cmsifby6qrped" path="res://components/sound/base_audio.tscn" id="6_gtrki"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_heaav"]
 
 [node name="Test" type="Node2D"]
 
@@ -23,141 +18,37 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.197937, 0.197937, 0.197937, 1)
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
-material = SubResource("CanvasItemMaterial_heaav")
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.992593
-offset_left = 128.0
-offset_top = 128.0
-offset_right = -768.0
-offset_bottom = -432.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("1_qjghx")
-expand_mode = 1
-stretch_mode = 1
-metadata/_edit_use_anchors_ = true
+[node name="Grid" parent="." instance=ExtResource("1_cmcf6")]
 
-[node name="BaseActor" parent="." instance=ExtResource("2_355aj")]
-position = Vector2(320, 192)
+[node name="Cell" parent="Grid/CellContainer" index="0" instance=ExtResource("2_ekrsj")]
+position = Vector2(128, 128)
 
-[node name="BumpableCollider" parent="BaseActor" node_paths=PackedStringArray("Body") instance=ExtResource("4_o6fwe")]
-monitoring = true
+[node name="Cell2" parent="Grid/CellContainer" index="1" instance=ExtResource("2_ekrsj")]
+position = Vector2(256, 128)
+
+[node name="Cell3" parent="Grid/CellContainer" index="2" instance=ExtResource("2_ekrsj")]
+position = Vector2(384, 128)
+
+[node name="Cell4" parent="Grid/CellContainer" index="3" instance=ExtResource("2_ekrsj")]
+position = Vector2(512, 128)
+
+[node name="Cell5" parent="Grid/CellContainer" index="4" instance=ExtResource("2_ekrsj")]
+position = Vector2(128, 256)
+
+[node name="Cell6" parent="Grid/CellContainer" index="5" instance=ExtResource("2_ekrsj")]
+position = Vector2(256, 256)
+
+[node name="Cell7" parent="Grid/CellContainer" index="6" instance=ExtResource("2_ekrsj")]
+position = Vector2(384, 256)
+
+[node name="Cell8" parent="Grid/CellContainer" index="7" instance=ExtResource("2_ekrsj")]
+position = Vector2(512, 256)
+
+[node name="BaseEnemy" parent="." instance=ExtResource("2_355aj")]
+position = Vector2(128, 128)
+rotation = 0.785398
+
+[node name="VelocityMover" parent="BaseEnemy" node_paths=PackedStringArray("Body") instance=ExtResource("6_406jo")]
 Body = NodePath("..")
 
-[node name="BumpCollider" parent="BaseActor" node_paths=PackedStringArray("Body") instance=ExtResource("5_u54vr")]
-Body = NodePath("..")
-
-[node name="BaseAudio" parent="BaseActor" node_paths=PackedStringArray("Actor") instance=ExtResource("6_gtrki")]
-AudioDirectory = "res://assets/sound effects/reso"
-Actor = NodePath("..")
-
-[node name="VelocityMover" parent="BaseActor" node_paths=PackedStringArray("Body") instance=ExtResource("6_406jo")]
-Speed = 2
-Body = NodePath("..")
-
-[node name="BaseActor2" parent="." instance=ExtResource("2_355aj")]
-position = Vector2(320, 448)
-
-[node name="BumpableCollider" parent="BaseActor2" node_paths=PackedStringArray("Body") instance=ExtResource("4_o6fwe")]
-monitoring = true
-Body = NodePath("..")
-
-[node name="BumpCollider" parent="BaseActor2" node_paths=PackedStringArray("Body") instance=ExtResource("5_u54vr")]
-Body = NodePath("..")
-
-[node name="BaseAudio" parent="BaseActor2" node_paths=PackedStringArray("Actor") instance=ExtResource("6_gtrki")]
-AudioDirectory = "res://assets/sound effects/reso"
-Actor = NodePath("..")
-
-[node name="VelocityMover" parent="BaseActor2" node_paths=PackedStringArray("Body") instance=ExtResource("6_406jo")]
-Body = NodePath("..")
-
-[node name="walls" type="Node2D" parent="."]
-
-[node name="Wall" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(1216, 576)
-
-[node name="Wall17" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(1216, 704)
-
-[node name="Wall6" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(1088, 704)
-
-[node name="Wall7" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(960, 704)
-
-[node name="Wall8" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(832, 704)
-
-[node name="Wall9" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(704, 704)
-
-[node name="Wall10" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(576, 704)
-
-[node name="Wall11" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(448, 704)
-
-[node name="Wall12" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(320, 704)
-
-[node name="Wall13" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(192, 704)
-
-[node name="Wall4" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(1216, 320)
-
-[node name="Wall18" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(1216, 192)
-
-[node name="Wall19" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(1216, 64)
-
-[node name="Wall20" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(1088, 64)
-
-[node name="Wall21" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(960, 64)
-
-[node name="Wall22" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(832, 64)
-
-[node name="Wall5" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(1216, 448)
-
-[node name="Wall3" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(64, 320)
-
-[node name="Wall14" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(64, 448)
-
-[node name="Wall15" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(64, 576)
-
-[node name="Wall16" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(64, 704)
-
-[node name="Wall2" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(704, 64)
-
-[node name="Wall23" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(576, 64)
-
-[node name="Wall24" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(448, 64)
-
-[node name="Wall25" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(320, 64)
-
-[node name="Wall26" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(192, 64)
-
-[node name="Wall27" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(64, 64)
-
-[node name="Wall28" parent="walls" instance=ExtResource("2_gpi1i")]
-position = Vector2(64, 192)
+[editable path="Grid"]

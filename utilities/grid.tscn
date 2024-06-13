@@ -4,3 +4,5 @@
 
 [node name="Grid" type="Node2D"]
 script = ExtResource("1_wbavb")
+
+[node name="CellContainer" type="Node2D" parent="."]

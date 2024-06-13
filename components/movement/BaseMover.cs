@@ -22,8 +22,6 @@ public partial class BaseMover: Node
             Body.Velocity = Body.Velocity.Bounce(collision.GetNormal());
             Body.SignalWallCollision();
         }
-
-        
     }
 
     protected virtual void OnBeat()

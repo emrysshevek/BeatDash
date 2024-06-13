@@ -13,7 +13,14 @@ public partial class BaseActor : CharacterBody2D
   private bool CanSignalObjectCollision = true;
   private bool CanSignalWallCollision = true;
   private bool CanSignalCellIntersection = true;
+  private Timer IntersectionTimer;
+  private Timer CollisionTimer;
 
+  public override void _Ready()
+  {
+    IntersectionTimer = GetNode<Timer>("IntersectionTimer");
+    CollisionTimer = GetNode<Timer>("CollisionTimer");
+  }
 
   public void SignalObjectCollision()
   {
@@ -39,10 +46,17 @@ public partial class BaseActor : CharacterBody2D
   {
     if (CanSignalCellIntersection)
     {
+      GD.Print("Intersected Cell");
       EmitSignal(SignalName.CellIntersection);
       CanSignalCellIntersection = false;
-      CallDeferred(BaseActor.MethodName.ResetSignalFlags);
+      // CallDeferred(BaseActor.MethodName.ResetSignalFlags);
+      IntersectionTimer.Start();
     } 
+  }
+
+  private void ResetCellIntersectionFlag()
+  {
+    CanSignalCellIntersection = true;
   }
 
   private void ResetSignalFlags()
