@@ -11,7 +11,7 @@ public partial class BaseMover: Node
     {
         Metronome = GetNode<Metronome>("/root/Metronome");
         Metronome.Beat += OnBeat;
-        Body.WallCollision += Redirect
+        // Body.WallCollision += Redirect;
     }
 
     public void Move(double delta)
@@ -49,7 +49,7 @@ public partial class BaseMover: Node
 
     public void Reflect(Vector2 reflection)
     {
-        Body.Velocity *= 
+       
     }
 
     public Vector2 GetNearestCell(Vector2 position)
