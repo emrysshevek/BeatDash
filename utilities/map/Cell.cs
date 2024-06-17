@@ -6,7 +6,7 @@ using Godot;
 public partial class Cell : Area2D
 {
     [Export]
-    public float Tolerance = 3;
+    public float Tolerance = 2;
     public bool IsEdge => Neighbors.Values.Where(cell => cell != null).Any();
 
     public Vector2I Coordinates { get; set; } = Vector2I.MaxValue;
@@ -29,7 +29,7 @@ public partial class Cell : Area2D
             if (body is BaseActor actor)
             {
                 TryIntersect(actor);
-                TryReflect(actor);
+                if (IsEdge) TryReflect(actor);
             }
         }
     }
@@ -39,8 +39,36 @@ public partial class Cell : Area2D
         if (actor.GlobalPosition.DistanceTo(GlobalPosition) <= Tolerance)
         {
             actor.SignalCellIntersection();
+            actor.GlobalPosition = GlobalPosition;
+            GD.Print();
         }
     }
+
+    public void Tint()
+    {
+        GetNode<CollisionShape2D>("CollisionShape2D").DebugColor = new Color(1f, 0f, 0f, .5f);
+    }
+
+    public void UnTint()
+    {
+        GetNode<CollisionShape2D>("CollisionShape2D").DebugColor = new Color(0f, .5f, .5f, .5f);
+    }
+
+    private void HighlightNeighbors()
+    {
+        foreach(var cell in Neighbors.Values)
+        {
+            cell?.CallDeferred(Cell.MethodName.Tint);
+        }
+    }
+
+    private void UnhighlightNeighbors()
+    {
+        foreach(var cell in Neighbors.Values)
+        {
+            cell?.UnTint();
+        }
+    }   
 
     public void TryReflect(BaseActor actor)
     {
@@ -55,21 +83,18 @@ public partial class Cell : Area2D
         var directionToCenter = actor.GlobalPosition.DirectionTo(GlobalPosition);
 
         var isLeavingCell = directionToCenter.Normalized().Dot(actor.Velocity.Normalized()) < 0;
-        GD.Print($"Trying to reflect {actor.Name}. Position={actor.GlobalPosition}, Center={GlobalPosition}, movement={movementDirection}, isLeaving={directionToCenter.Normalized().Dot(movementDirection.Normalized())}");
         
         var displacement = Vector2.Zero;
         var reflection = Vector2.One;
 
         if (actor.Velocity.Sign().X != directionToCenter.Sign().X && Neighbors[(Vector2I)movementDirection * Vector2I.Right] == null)
         {
-            GD.Print($"Reflecting x. neighbor: {Neighbors[(Vector2I)movementDirection * Vector2I.Right]}");
             displacement.X = 2 * directionToCenter.X;
             reflection.X = -1;
         }
 
         if (actor.Velocity.Sign().Y != directionToCenter.Sign().Y && Neighbors[(Vector2I)movementDirection * Vector2I.Down] == null)
         {
-            GD.Print("Reflecting Y");
             displacement.Y = 2 * directionToCenter.Y;
             reflection.Y = -1;
         }
@@ -85,4 +110,5 @@ public partial class Cell : Area2D
         //     GD.Print($"Displacement={displacement}, reflection={reflection}");
         // }
     }
+
 }

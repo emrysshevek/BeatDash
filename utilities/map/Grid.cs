@@ -1,18 +1,31 @@
 using Godot;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class Grid : Node2D
 {
 	private Node2D CellContainer;
-	private PackedScene CellScene = GD.Load<PackedScene>("res://utilities/cell.tscn");
+	private TileMap Map;
+	private PackedScene CellScene = GD.Load<PackedScene>("res://utilities/map/cell.tscn");
 	private Dictionary<Vector2I, Cell> Cells = new();
 
 	public override void _Ready()
 	{
+		Map = GetNode<TileMap>("TileMap");
 		CellContainer = GetNode<Node2D>("CellContainer");
-		foreach (var node in CellContainer.GetChildren())
+		// foreach (var node in CellContainer.GetChildren())
+		// {
+		// 	if (node is Cell cell) AddCell(cell);
+		// }
+		GD.Print(Map.GetUsedCells(0).Count);
+		foreach (var coords in Map.GetUsedCells(0))
 		{
-			if (node is Cell cell) AddCell(cell);
+			CreateCell(coords);
+		}
+		foreach (var coord in Cells.Keys)
+		{
+			GD.Print($"cell at {coord} has {Cells[coord].Neighbors.Count} neighbors");
 		}
 	}
 
@@ -22,13 +35,15 @@ public partial class Grid : Node2D
 		{
 			cell.Coordinates = (Vector2I) (cell.GlobalPosition / Global.TileSize);
 		}
+
 		GD.Print($"Added cell {cell.Name} at {cell.Coordinates}");
 		Cells[cell.Coordinates] = cell;
-		for (int i = -1; i < 1; i++)
+		for (int i = -1; i <= 1; i++)
 		{
-			for (int j = -1; j < 1; j++)
+			for (int j = -1; j <= 1; j++)
 			{
 				var direction = new Vector2I(i, j);
+				GD.Print(String.Join(", ", cell.Neighbors.Select(res => $"{res.Key}: {res.Value}")));
 				if (direction != Vector2I.Zero && Cells.TryGetValue(direction + cell.Coordinates, out Cell neighbor))
                 {
 					GD.Print($"Adding neighbor at {neighbor.Coordinates} to {direction}");
@@ -41,11 +56,12 @@ public partial class Grid : Node2D
 
     public void CreateCell(Vector2I coord)
 	{
-		if (Cells.Count > 0 || HasNeighbor(coord))
+		if (Cells.Count == 0 || HasNeighbor(coord))
 		{
 			var cell = CellScene.Instantiate<Cell>();
 			cell.Coordinates = coord;
-			cell.GlobalPosition = coord * Global.TileSize;
+			// cell.GlobalPosition = coord * Global.TileSize;
+			cell.GlobalPosition = ToGlobal(Map.MapToLocal(coord));
 			CellContainer.AddChild(cell);
 			AddCell(cell);
 		}

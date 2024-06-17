@@ -11,6 +11,7 @@ public partial class BaseMover: Node
     {
         Metronome = GetNode<Metronome>("/root/Metronome");
         Metronome.Beat += OnBeat;
+        Body.WallCollision += Redirect
     }
 
     public void Move(double delta)
@@ -34,6 +35,21 @@ public partial class BaseMover: Node
             GD.Print($"[{Metronome.TotalElapsedTime}] Snapping {Body.Name} position on beat to cell at {GetNearestCellCenter(Body.GlobalPosition)}");
             // Body.SignalCellIntersection();
         }
+    }
+
+    public void Reposition(Vector2 position)
+    {
+        Body.Position = position;
+    }
+
+    public void Redirect(Vector2 direction)
+    {
+        Body.Velocity *= direction.Normalized();
+    }
+
+    public void Reflect(Vector2 reflection)
+    {
+        Body.Velocity *= 
     }
 
     public Vector2 GetNearestCell(Vector2 position)

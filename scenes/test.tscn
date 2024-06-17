@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0ybtmwx2a0h5"]
+[gd_scene load_steps=4 format=3 uid="uid://c0ybtmwx2a0h5"]
 
-[ext_resource type="PackedScene" uid="uid://ju0vpyxapmgg" path="res://utilities/grid.tscn" id="1_cmcf6"]
+[ext_resource type="PackedScene" uid="uid://ju0vpyxapmgg" path="res://utilities/map/grid.tscn" id="1_cmcf6"]
 [ext_resource type="PackedScene" uid="uid://d12hquew4xm0u" path="res://entities/actors/enemy/base_enemy.tscn" id="2_355aj"]
-[ext_resource type="PackedScene" uid="uid://dasw4c7xryvm2" path="res://utilities/cell.tscn" id="2_ekrsj"]
-[ext_resource type="PackedScene" uid="uid://d1qe8j2vcl8xn" path="res://components/movement/velocity_mover.tscn" id="6_406jo"]
+[ext_resource type="PackedScene" uid="uid://dncccyyoapb1v" path="res://components/movement/circle_mover.tscn" id="3_uean8"]
 
 [node name="Test" type="Node2D"]
 
@@ -16,39 +15,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0.197937, 0.197937, 0.197937, 1)
 
 [node name="Grid" parent="." instance=ExtResource("1_cmcf6")]
 
-[node name="Cell" parent="Grid/CellContainer" index="0" instance=ExtResource("2_ekrsj")]
-position = Vector2(128, 128)
-
-[node name="Cell2" parent="Grid/CellContainer" index="1" instance=ExtResource("2_ekrsj")]
-position = Vector2(256, 128)
-
-[node name="Cell3" parent="Grid/CellContainer" index="2" instance=ExtResource("2_ekrsj")]
-position = Vector2(384, 128)
-
-[node name="Cell4" parent="Grid/CellContainer" index="3" instance=ExtResource("2_ekrsj")]
-position = Vector2(512, 128)
-
-[node name="Cell5" parent="Grid/CellContainer" index="4" instance=ExtResource("2_ekrsj")]
-position = Vector2(128, 256)
-
-[node name="Cell6" parent="Grid/CellContainer" index="5" instance=ExtResource("2_ekrsj")]
-position = Vector2(256, 256)
-
-[node name="Cell7" parent="Grid/CellContainer" index="6" instance=ExtResource("2_ekrsj")]
-position = Vector2(384, 256)
-
-[node name="Cell8" parent="Grid/CellContainer" index="7" instance=ExtResource("2_ekrsj")]
-position = Vector2(512, 256)
+[node name="TileMap" parent="Grid" index="1"]
+layer_0/tile_data = PackedInt32Array(0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 65540, 1, 0, 65539, 1, 0, 65538, 1, 0, 65537, 1, 0, 65536, 1, 0, 131072, 1, 0, 131073, 1, 0, 131074, 1, 0, 131075, 1, 0, 131076, 1, 0, 196608, 1, 0, 196609, 1, 0, 196610, 1, 0, 196611, 1, 0, 196612, 1, 0)
 
 [node name="BaseEnemy" parent="." instance=ExtResource("2_355aj")]
-position = Vector2(128, 128)
+position = Vector2(64, 192)
 rotation = 0.785398
 
-[node name="VelocityMover" parent="BaseEnemy" node_paths=PackedStringArray("Body") instance=ExtResource("6_406jo")]
+[node name="CircleMover" parent="BaseEnemy" node_paths=PackedStringArray("Body") instance=ExtResource("3_uean8")]
 Body = NodePath("..")
 
 [editable path="Grid"]
