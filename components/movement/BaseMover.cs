@@ -47,11 +47,6 @@ public partial class BaseMover: Node
         Body.Velocity *= direction.Normalized();
     }
 
-    public void Reflect(Vector2 reflection)
-    {
-       
-    }
-
     public Vector2 GetNearestCell(Vector2 position)
     {
         return (Vector2I) position / Global.TileSize;

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class BumpableCollider : BaseCollider, IBumpable
+public partial class BumpableCollider : BaseCollider
 {
   public void Bump(Vector2 velocity)
   {

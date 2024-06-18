@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class BaseActor : CharacterBody2D
+public partial class BaseActor : Area2D
 {
   [Signal]
   public delegate void ObjectCollisionEventHandler();
@@ -15,11 +15,17 @@ public partial class BaseActor : CharacterBody2D
   private bool CanSignalCellIntersection = true;
   private Timer IntersectionTimer;
   private Timer CollisionTimer;
+  private BaseMover Mover;
 
   public override void _Ready()
   {
     IntersectionTimer = GetNode<Timer>("IntersectionTimer");
     CollisionTimer = GetNode<Timer>("CollisionTimer");
+
+    foreach (var node in GetChildren())
+    {
+      if (node is BaseMover m) Mover = m;
+    }
   }
 
   public void SignalObjectCollision()

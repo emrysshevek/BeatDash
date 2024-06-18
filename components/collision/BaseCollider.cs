@@ -10,6 +10,8 @@ public partial class BaseCollider : Area2D
 
 	[Export]
 	public BaseActor Body;
+  [Export]
+  public BaseMover Mover;
 
   protected Metronome Metronome;
 
@@ -17,6 +19,8 @@ public partial class BaseCollider : Area2D
   {
     Metronome = GetNode<Metronome>("/root/Metronome");
     Metronome.Beat += OnBeat;
+
+    Body.ObjectCollision += OnCollision;
   }
   public void OnAreaEntered(Area2D area)
   {
@@ -57,5 +61,10 @@ public partial class BaseCollider : Area2D
   public virtual void OnColliderIntersection(BaseCollider collider)
   {
     Body.SignalObjectCollision();
+  }
+
+  public virtual void OnCollision()
+  {
+    
   }
 }

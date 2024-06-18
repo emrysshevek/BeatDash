@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class ReflectiveCollider : BaseCollider
+public partial class ReverserCollider : BaseCollider
 {
 	[Export]
 	public bool AddVelocity = false;
@@ -9,10 +9,10 @@ public partial class ReflectiveCollider : BaseCollider
   public override void OnColliderIntersection(BaseCollider collider)
   {
     base.OnColliderIntersection(collider);
-    if (collider is IReflectable obj)
+    if (collider is IReversible obj)
     {
-      if (AddVelocity) obj.Reflect(Body.Velocity);
-      else obj.Reflect();
+      if (AddVelocity) obj.Reverse(Body.Velocity);
+      else obj.Reverse();
     }
   }
 }
