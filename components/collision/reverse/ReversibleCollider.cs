@@ -1,13 +1,10 @@
 using Godot;
 
-public partial class ReversibleCollider : BaseCollider
+public partial class ReversibleCollider : BaseCollider, IReversible
 {
-
-  public override void _Ready()
+  public void Reverse(Vector2 addedVelocity = default)
   {
-    base._Ready();
-    if (Mover is not IReversible) GD.PushError("ERROR: Mover is not Reversible");
+    Mover.Reverse();
   }
-  
-  
+
 }

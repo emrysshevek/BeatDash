@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://ch7r6hnkfarj7"]
+
+[ext_resource type="PackedScene" uid="uid://jl8omhf8k8xo" path="res://components/collision/base_collider.tscn" id="1_0bhw6"]
+[ext_resource type="Script" path="res://components/collision/reflect/ReflectiveCollider.cs" id="2_5k346"]
+
+[node name="ReflectiveCollider" instance=ExtResource("1_0bhw6")]
+script = ExtResource("2_5k346")

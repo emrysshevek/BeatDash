@@ -13,6 +13,8 @@ public partial class BaseCollider : Area2D
   [Export]
   public BaseMover Mover;
 
+  public Vector2 Velocity { get => Body.Velocity; }
+
   protected Metronome Metronome;
 
   public override void _Ready()

@@ -29,7 +29,16 @@ public partial class Cell : Area2D
             if (body is BaseActor actor)
             {
                 TryIntersect(actor);
-                if (IsEdge) TryReflect(actor);
+            }
+        }
+        if (IsEdge)
+        {
+            foreach (var area in GetOverlappingAreas())
+            {
+                if (area is BaseCollider && area is IReflectable)
+                {
+                    TryReflect(area as IReflectable);
+                }
             }
         }
     }
@@ -70,7 +79,7 @@ public partial class Cell : Area2D
         }
     }   
 
-    public void TryReflect(BaseActor actor)
+    public void TryReflect(IReflectable reflectable)
     {
         
         /*
@@ -79,8 +88,8 @@ public partial class Cell : Area2D
             - if moving out of cell, determine which neighbors must exist to move into
             - if neighbor in direction of movement is missing, reflect instead
         */        
-        var movementDirection = actor.Velocity.Sign();
-        var directionToCenter = actor.GlobalPosition.DirectionTo(GlobalPosition);
+        var movementDirection = reflectable.Velocity.Sign();
+        var directionToCenter = reflectable.GlobalPosition.DirectionTo(GlobalPosition);
 
         var isLeavingCell = directionToCenter.Normalized().Dot(actor.Velocity.Normalized()) < 0;
         

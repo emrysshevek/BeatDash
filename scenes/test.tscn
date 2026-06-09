@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://ju0vpyxapmgg" path="res://utilities/map/grid.tscn" id="1_cmcf6"]
 [ext_resource type="PackedScene" uid="uid://d12hquew4xm0u" path="res://entities/actors/enemy/base_enemy.tscn" id="2_355aj"]
-[ext_resource type="PackedScene" uid="uid://dncccyyoapb1v" path="res://components/movement/circle_mover.tscn" id="3_uean8"]
+[ext_resource type="PackedScene" uid="uid://d1qe8j2vcl8xn" path="res://components/movement/velocity_mover.tscn" id="3_bskhq"]
 
 [node name="Test" type="Node2D"]
 
@@ -27,7 +27,6 @@ layer_0/tile_data = PackedInt32Array(0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0
 position = Vector2(64, 192)
 rotation = 0.785398
 
-[node name="CircleMover" parent="BaseEnemy" node_paths=PackedStringArray("Body") instance=ExtResource("3_uean8")]
-Body = NodePath("..")
+[node name="VelocityMover" parent="BaseEnemy" instance=ExtResource("3_bskhq")]
 
 [editable path="Grid"]

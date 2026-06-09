@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class BaseActor : Area2D
+public partial class BaseActor : CharacterBody2D
 {
   [Signal]
   public delegate void ObjectCollisionEventHandler();

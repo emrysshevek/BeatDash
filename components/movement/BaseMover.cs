@@ -1,11 +1,14 @@
 using System;
 using Godot;
 
-public partial class BaseMover: Node
+public partial class BaseMover: Node, IBumpable, IReversible, IReflectable, IDestructable
 {
     [Export]
     public BaseActor Body;
     protected Metronome Metronome;
+
+    public Vector2 Velocity { get => Body.Velocity; }
+
 
     public override void _Ready()
     {
@@ -59,5 +62,29 @@ public partial class BaseMover: Node
         result.X += Global.TileSize / 2f;
         result.Y += Global.TileSize / 2f;
         return result.Round();
+    }
+
+    public void Bump(Vector2 velocity)
+    {
+        GD.Print($"Bump velocity = {velocity}");
+        Body.SetDeferred(CharacterBody2D.PropertyName.Position, Body.Position + velocity.Normalized());
+        Body.SetDeferred(CharacterBody2D.PropertyName.Velocity, velocity);
+    }
+
+    public void Reverse(Vector2 addedVelocity = default)
+    {
+        Body.SetDeferred(CharacterBody2D.PropertyName.Velocity, addedVelocity - Body.Velocity);
+    }
+
+    public void Reflect(Vector2 normal, Vector2 addedVelocity = default)
+    {
+        var new_velo = Body.Velocity.Bounce(normal.Normalized()) + addedVelocity;
+        Body.SetDeferred(CharacterBody2D.PropertyName.Velocity, new_velo);
+    }
+
+    public void Destroy()
+    {
+        GD.Print("Destroy triggered");
+        Body.CallDeferred(BaseActor.MethodName.Destroy);
     }
 }
